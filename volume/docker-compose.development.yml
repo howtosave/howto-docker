@@ -1,0 +1,66 @@
+version: "3.5"
+services:
+
+  webapp:
+    build:
+      context: ../nodejs/app
+      dockerfile: dockerfile.development
+    image: webapp:nodejs
+    ports:
+      - "2337:8080"
+    networks:
+      - br10
+    volumes:
+      - type: bind
+        source: ./var/public
+        target: /var/public
+        read_only: true
+      - type: bind
+        source: ./var/upload
+        target: /var/upload
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  webserver:
+    build:
+      context: ../nginx
+      dockerfile: dockerfile.development
+    image: webserver:nginx
+    ports:
+      - "8080:80"
+    networks:
+      - br10
+    volumes:
+      - type: bind
+        source: ./nginx-conf
+        target: /etc/nginx
+        read_only: true
+      - type: bind
+        source: ./var/public
+        target: /var/public
+        read_only: true
+      - type: bind
+        source: ./var/log/nginx
+        target: /var/log/nginx
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  br10:
+    external:
+      name: br10
+
+volumes:
+  howto_volume:
+    external:
+      name: howto_volume

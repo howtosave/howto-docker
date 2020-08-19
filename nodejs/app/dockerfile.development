@@ -1,0 +1,36 @@
+#
+# NodeJS Development Mode
+#
+# See https://docs.docker.com/engine/reference/builder/
+#
+
+# See https://hub.docker.com/_/node
+FROM node:12.18-alpine3.12
+
+# directories
+# read only
+ENV PUBLIC_DIR '/var/public'
+# read-write
+ENV UPLOAD_DIR '/var/upload'
+RUN mkdir -p ${PUBLIC_DIR} ${UPLOAD_DIR}
+# volumes to be bind at runtime
+VOLUME [ "${PUBLIC_DIR}", "${UPLOAD_DIR}" ]
+
+# host and port
+# NOT 127.0.0.1 but 0.0.0.0
+ENV HOST '0.0.0.0'
+ENV PORT 8080
+EXPOSE ${PORT}
+
+# env mode
+ENV NODE_ENV 'development'
+
+# Create and goto app directory
+WORKDIR /usr/src/app
+
+# Bundle app source
+COPY . .
+RUN yarn install --frozen-lockfile
+
+# run in debug mode with verbose output
+ENTRYPOINT ["node", "index.js"]

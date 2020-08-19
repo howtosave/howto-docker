@@ -1,0 +1,27 @@
+#
+# Nginx Development Mode
+#
+# See https://docs.docker.com/engine/reference/builder/
+#
+
+# See https://hub.docker.com/_/nginx
+FROM nginx:1.19.2-alpine
+
+# directories
+# read only
+ENV NGINX_DIR '/etc/nginx'
+ENV PUBLIC_DIR '/var/public'
+# read-write
+ENV SRV_DIR '/var/log/nginx'
+RUN mkdir -p ${PUBLIC_DIR} ${SRV_DIR}
+# volumes to be bind at runtime
+VOLUME [ "${NGINX_DIR}", "${PUBLIC_DIR}", "${SRV_DIR}" ]
+
+# verbose entrypoint
+ENV NGINX_ENTRYPOINT_QUIET_LOGS=0
+
+# 
+#COPY static-html-directory /usr/share/nginx/html
+
+# run in debug mond with verbose output
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

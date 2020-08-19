@@ -1,0 +1,150 @@
+############################
+# General Ignore Files
+############################
+tmp
+tmp-*
+temp
+temp-*
+.tmp
+*.log
+*#
+.*.local
+.*.local.*
+
+############################
+# OS X
+############################
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+
+
+############################
+# Linux
+############################
+
+*~
+
+
+############################
+# Windows
+############################
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+
+############################
+# Packages
+############################
+
+*.7z
+*.csv
+*.dat
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.seed
+*.so
+*.swo
+*.swp
+*.swn
+*.swm
+*.out
+*.pid
+
+
+############################
+# Logs and databases
+############################
+
+.tmp
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+
+############################
+# Misc.
+############################
+
+*#
+ssl
+.idea
+nbproject
+public/uploads/*
+!public/uploads/.gitkeep
+public/nitroapi/uploads/*
+!public/nitroapi/uploads/.gitkeep
+# gatsby web client
+public/nitroweb
+# statistics JSON
+public/nitroapi/stat-json/*.json
+# build output directory
+build/
+dist/
+# local env files
+.env
+.env.local
+.env.*.local
+
+############################
+# Node.js
+############################
+
+lib-cov
+lcov.info
+pids
+logs
+results
+node_modules
+.node_history
+
+
+############################
+# Tests
+############################
+
+testApp
+coverage
+
+############################
+# Strapi Output
+############################
+exports
+*.cache
+
+extensions/*/documentation/*/*
+!extensions/*/documentation/*/overrides
+extensions/documentation/documentation/*
+extensions/documentation/public
+
+api/*/documentation/*/*
+!api/*/documentation/*/overrides
+
+api-ref/*/documentation/*/*
+!api-ref/*/documentation/*/overrides
+
+plugins/*/documentation/*/*
+!plugins/*/documentation/*/overrides
