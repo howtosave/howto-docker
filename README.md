@@ -38,8 +38,7 @@ docker run --rm -it --name nginx-test -p 8080:80 \
 ```sh
  # build
 docker build --file nodejs/app/dockerfile.development --tag webapp:nodejs_d ./nodejs/app
-# or
-docker build --file nodejs/app/dockerfile.pm2 --tag webapp:pm2 ./nodejs/app
+# or docker build --file nodejs/app/dockerfile.pm2 --tag webapp:pm2 ./nodejs/app
 
 # run with temp container
 docker run --rm -it --name nodejs-test -p 2337:8080 \

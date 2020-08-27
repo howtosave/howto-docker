@@ -55,7 +55,7 @@ networks:
   backend-network:
     external:
       name: backend-network
-                
+
 volumes:
   example_web_cluster_volume:
     external:
