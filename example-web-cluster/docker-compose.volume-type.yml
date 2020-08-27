@@ -1,31 +1,6 @@
 version: "3.5"
 services:
 
-  webapp:
-    build:
-      context: ../nodejs/app
-      dockerfile: dockerfile.development
-    image: webapp:nodejs
-    ports:
-      - "2337:8080"
-    networks:
-      - br10
-    volumes:
-      - type: volume
-        source: howto_volume
-        target: /var/public
-        read_only: true
-      - type: volume
-        source: howto_volume
-        target: /var/upload
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-
   webserver:
     build:
       context: ../nginx
@@ -34,19 +9,40 @@ services:
     ports:
       - "8080:80"
     networks:
-      - br10
+      - backend-network
     volumes:
-      - type: bind
-        source: ./nginx-conf
-        target: /etc/nginx
+      - type: volume
+        source: example_web_cluster_volume
+        target: /volume-ro
         read_only: true
       - type: volume
-        source: howto_volume
-        target: /var/public
+        source: example_web_cluster_volume
+        target: /volume-rw
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  webapp:
+    build:
+      context: ../nodejs/app
+      dockerfile: dockerfile.development
+    image: webapp:nodejs
+    ports:
+      - "2337:8080"
+    networks:
+      - backend-network
+    volumes:
+      - type: volume
+        source: example_web_cluster_volume
+        target: /volume-ro
         read_only: true
       - type: volume
-        source: howto_volume
-        target: /var/log/nginx
+        source: example_web_cluster_volume
+        target: /volume-rw
     deploy:
       replicas: 1
       update_config:
@@ -56,11 +52,11 @@ services:
         condition: on-failure
 
 networks:
-  br10:
+  backend-network:
     external:
-      name: br10
-
+      name: backend-network
+                
 volumes:
-  howto_volume:
+  example_web_cluster_volume:
     external:
-      name: howto_volume
+      name: example_web_cluster_volume
