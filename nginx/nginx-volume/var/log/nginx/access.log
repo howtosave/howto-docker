@@ -28,3 +28,5 @@
 172.17.0.1 - - [19/Aug/2020:14:57:33 +0000] "GET /a HTTP/1.1" 404 555 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36" "-"
 172.17.0.1 - - [19/Aug/2020:14:57:37 +0000] "GET /a HTTP/1.1" 404 555 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36" "-"
 172.17.0.1 - - [19/Aug/2020:14:57:37 +0000] "GET /a HTTP/1.1" 404 555 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36" "-"
+172.17.0.1 - - [27/Aug/2020:04:23:40 +0000] "GET / HTTP/1.1" 200 427 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36" "-"
+172.17.0.1 - - [27/Aug/2020:04:23:40 +0000] "GET /favicon.ico HTTP/1.1" 404 555 "http://localhost:8080/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36" "-"

@@ -25,3 +25,13 @@ server.listen(PORT, HOST, () => {
     console.log(`UPLOAD_DIR: ${process.env.UPLOAD_DIR}`);
     console.log(`listening on ${HOST}:${PORT}`);
 });
+
+// handle ctrl+c
+process.on('SIGINT', function() {
+    console.log("\nGracefully shutting down from SIGINT" );
+    // some other closing procedures go here
+    server.close((err) => {
+        if (err) console.error("!!!ERR", err), process.exit(1);
+        else process.exit(0);
+    })
+});

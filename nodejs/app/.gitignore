@@ -129,22 +129,3 @@ node_modules
 testApp
 coverage
 
-############################
-# Strapi Output
-############################
-exports
-*.cache
-
-extensions/*/documentation/*/*
-!extensions/*/documentation/*/overrides
-extensions/documentation/documentation/*
-extensions/documentation/public
-
-api/*/documentation/*/*
-!api/*/documentation/*/overrides
-
-api-ref/*/documentation/*/*
-!api-ref/*/documentation/*/overrides
-
-plugins/*/documentation/*/*
-!plugins/*/documentation/*/overrides

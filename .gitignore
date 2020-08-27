@@ -1,0 +1,12 @@
+############################
+# General Ignore Files
+############################
+tmp
+tmp-*
+temp
+temp-*
+.tmp
+*.log
+*#
+.*.local
+.*.local.*
