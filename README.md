@@ -23,7 +23,8 @@ docker --version
 
 ```sh
 # build
-docker build --file nginx/dockerfile.development --tag webserver:nginx ./nginx
+docker build --file nginx/dockerfile.development --tag webserver:nginx_d ./nginx
+# or docker build --file nginx/dockerfile --tag webserver:nginx ./nginx
 
 # run with temp container
 docker run --rm -it --name nginx-test -p 8080:80 \
@@ -36,7 +37,7 @@ docker run --rm -it --name nginx-test -p 8080:80 \
 
 ```sh
  # build
-docker build --file nodejs/app/dockerfile.development --tag webapp:nodejs ./nodejs/app
+docker build --file nodejs/app/dockerfile.development --tag webapp:nodejs_d ./nodejs/app
 # or
 docker build --file nodejs/app/dockerfile.pm2 --tag webapp:pm2 ./nodejs/app
 

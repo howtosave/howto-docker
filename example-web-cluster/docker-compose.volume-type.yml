@@ -4,7 +4,7 @@ services:
   webserver:
     build:
       context: ../nginx
-      dockerfile: dockerfile.development
+      dockerfile: dockerfile
     image: webserver:nginx
     ports:
       - "8080:80"
@@ -29,8 +29,8 @@ services:
   webapp:
     build:
       context: ../nodejs/app
-      dockerfile: dockerfile.development
-    image: webapp:nodejs
+      dockerfile: dockerfile.pm2
+    image: webapp:pm2
     ports:
       - "2337:8080"
     networks:

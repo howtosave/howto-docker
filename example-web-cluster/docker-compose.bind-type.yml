@@ -1,36 +1,11 @@
 version: "3.5"
 services:
 
-  webapp:
-    build:
-      context: ../nodejs/app
-      dockerfile: dockerfile.development
-    image: webapp:nodejs
-    ports:
-      - "2337:8080"
-    networks:
-      - backend-network
-    volumes:
-      - type: bind
-        source: ./wc-volume/public
-        target: /volume-ro/public
-        read_only: true
-      - type: bind
-        source: ./wc-volume/upload
-        target: /volume-rw/upload
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-
   webserver:
     build:
       context: ../nginx
       dockerfile: dockerfile.development
-    image: webserver:nginx
+    image: webserver:nginx_d
     ports:
       - "8080:80"
     networks:
@@ -43,6 +18,31 @@ services:
       - type: bind
         source: ./wc-volume
         target: /volume-rw
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  webapp:
+    build:
+      context: ../nodejs/app
+      dockerfile: dockerfile.development
+    image: webapp:nodejs_d
+    ports:
+      - "2337:8080"
+    networks:
+      - backend-network
+    volumes:
+      - type: bind
+        source: ./wc-volume/public
+        target: /volume-ro/public
+        read_only: true
+      - type: bind
+        source: ./wc-volume/upload
+        target: /volume-rw/upload
     deploy:
       replicas: 1
       update_config:

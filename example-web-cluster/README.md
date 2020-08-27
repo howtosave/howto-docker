@@ -18,7 +18,7 @@ docker network create \
   backend-network
 ```
 
-## Using the existing 'volume type' volume
+## Using the existing 'volume type' volume for production
 
 ```sh
 # create volume
@@ -30,6 +30,9 @@ docker run --rm -it --name temp-alpine \
     --mount type=bind,source="$(pwd)"/wc-volume,target=/local \
     alpine:3.12.0 /bin/sh
 # and do copy necessary files in /local to /volume
+docker run --rm -it --name temp-alpine \
+    --volume example_web_cluster_volume:/volume \
+    alpine:3.12.0 /bin/sh
 
 # build
 docker-compose -f docker-compose.volume-type.yml build
@@ -37,7 +40,7 @@ docker-compose -f docker-compose.volume-type.yml build
 docker-compose -f docker-compose.volume-type.yml up
 ```
 
-## Using 'bind type' volume
+## Using 'bind type' volume for debugging
 
 ```sh
 # build

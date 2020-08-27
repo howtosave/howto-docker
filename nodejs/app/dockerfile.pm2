@@ -38,4 +38,4 @@ COPY . .
 RUN yarn install --frozen-lockfile
 
 # run
-ENTRYPOINT ["pm2-runtime", "ecosystem.config.js"]
+ENTRYPOINT ["pm2-runtime", "ecosystem.config.js", "--env", "production"]

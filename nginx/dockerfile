@@ -23,11 +23,6 @@ RUN mkdir -p ${PUBLIC_DIR} ${SRV_DIR}
 VOLUME [ "/volume-ro", "/volume-rw" ]
 
 #
-# verbose entrypoint
-#
-ENV NGINX_ENTRYPOINT_QUIET_LOGS=0
-
-#
-# run in debug mode with verbose output
+# run
 #
 ENTRYPOINT ["nginx", "-c", "/volume-ro/nginx-conf/nginx.conf", "-g", "daemon off;"]
