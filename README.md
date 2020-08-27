@@ -27,9 +27,8 @@ docker build --file nginx/dockerfile.development --tag webserver:nginx ./nginx
 
 # run with temp container
 docker run --rm -it --name nginx-test -p 8080:80 \
-  --mount type=bind,source="$(pwd)"/nginx/nginx-volume/nginx-conf,target=/etc/nginx,readonly,bind-propagation=rslave \
-  --mount type=bind,source="$(pwd)"/nginx/nginx-volume/var/public,target=/var/public,readonly,bind-propagation=rslave \
-  --mount type=bind,source="$(pwd)"/nginx/nginx-volume/var/log/nginx,target=/var/log/nginx,bind-propagation=rslave \
+  --mount type=bind,source="$(pwd)"/nginx/nginx-volume,target=/volume-ro,readonly \
+  --mount type=bind,source="$(pwd)"/nginx/nginx-volume,target=/volume-rw \
   webserver:nginx
 ```
 

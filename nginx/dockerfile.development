@@ -9,16 +9,16 @@ FROM nginx:1.19.2-alpine
 
 # directories
 # read only
-ENV NGINX_DIR '/etc/nginx'
-ENV PUBLIC_DIR '/var/public'
+ENV NGINX_DIR '/volume-ro/nginx-conf'
+ENV PUBLIC_DIR '/volume-ro/public'
 # read-write
-ENV SRV_DIR '/var/log/nginx'
+ENV SRV_DIR '/volume-rw/log/nginx'
 RUN mkdir -p ${PUBLIC_DIR} ${SRV_DIR}
 # volumes to be bind at runtime
-VOLUME [ "${NGINX_DIR}", "${PUBLIC_DIR}", "${SRV_DIR}" ]
+VOLUME [ "/volume-ro", "/volume-rw" ]
 
 # verbose entrypoint
 ENV NGINX_ENTRYPOINT_QUIET_LOGS=0
 
 # run in debug mond with verbose output
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-c", "/volume-ro/nginx-conf/nginx.conf", "-g", "daemon off;"]
