@@ -6,7 +6,7 @@
 # prerequisite
 sudo apt update
 # install
-sudo apt install docker.io
+sudo apt install docker.io docker-compose
 # conf
 # run as a user
 sudo chmod 666 /var/run/docker.sock
@@ -75,28 +75,14 @@ docker run --rm -itd --name webserver -p 8080:80 --network br10 \
   webserver:nginx
 ```
 
-### With docker-compose
+## Volume
+
+### Create Volume
 
 ```sh
-# build
-docker-compose -f volume/docker-compose.development.yml build
-# run
-docker-compose -f volume/docker-compose.development.yml up
-
-```
-
-## Volume and docker-compose
-
-### Volume
-```sh
-# volume type
+# normal volume type
 docker volume create --name=howto_volume
 
-```
-
-### Create More volumes
-
-```sh
 # bind type
 docker volume create --name=howto-volume-bind --driver local --opt type=bind --opt device=$PWD/volume
 
@@ -105,6 +91,7 @@ docker volume create --name=howto-volume-nfs --driver local --opt type=nfs --opt
 ```
 
 ### Create Local Directory Mount Volume
+
 ```sh
 docker volume create --name=howto-docker-volume --driver local --opt type=bind --opt device=:$PWD/volume
 docker volume inspect howto-docker-volume
