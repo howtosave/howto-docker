@@ -4,7 +4,7 @@
 
 ```sh
 # prerequisite
-sudo apt-get update
+sudo apt update
 # install
 sudo apt install docker.io
 # conf
