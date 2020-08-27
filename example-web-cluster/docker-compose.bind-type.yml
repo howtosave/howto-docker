@@ -9,15 +9,15 @@ services:
     ports:
       - "2337:8080"
     networks:
-      - backend
+      - backend-network
     volumes:
       - type: bind
-        source: ./var/public
-        target: /var/public
+        source: ./wc-volume/public
+        target: /volume-ro/public
         read_only: true
       - type: bind
-        source: ./var/upload
-        target: /var/upload
+        source: ./wc-volume/upload
+        target: /volume-rw/upload
     deploy:
       replicas: 1
       update_config:
@@ -34,19 +34,15 @@ services:
     ports:
       - "8080:80"
     networks:
-      - backend
+      - backend-network
     volumes:
       - type: bind
-        source: ./nginx-conf
-        target: /etc/nginx
+        source: ./wc-volume
+        target: /volume-ro
         read_only: true
       - type: bind
-        source: ./var/public
-        target: /var/public
-        read_only: true
-      - type: bind
-        source: ./var/log/nginx
-        target: /var/log/nginx
+        source: ./wc-volume
+        target: /volume-rw
     deploy:
       replicas: 1
       update_config:
@@ -56,10 +52,6 @@ services:
         condition: on-failure
 
 networks:
-  backend:
-    #name: wabapp-backend
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.0.0.0/8
-
+  backend-network:
+    external:
+      name: backend-network
