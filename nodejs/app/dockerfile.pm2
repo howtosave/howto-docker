@@ -7,11 +7,15 @@
 # See https://hub.docker.com/_/node
 FROM node:12.18-alpine3.12
 
+# pm2 installation
+RUN npm install pm2 -g
+
 # directories
 # read only
 ENV PUBLIC_DIR '/volume-ro/public'
 # read-write
 ENV UPLOAD_DIR '/volume-rw/upload'
+ENV LOG_DIR '/volume-rw/log/pm2'
 
 RUN mkdir -p ${PUBLIC_DIR} ${UPLOAD_DIR} ${LOG_DIR}
 # volumes to be bind at runtime
@@ -24,7 +28,7 @@ ENV PORT 8080
 EXPOSE ${PORT}
 
 # env mode
-ENV NODE_ENV 'development'
+ENV NODE_ENV 'production'
 
 # Create and goto app directory
 WORKDIR /usr/src/app
@@ -33,5 +37,5 @@ WORKDIR /usr/src/app
 COPY . .
 RUN yarn install --frozen-lockfile
 
-# run 
-ENTRYPOINT ["node", "index.js"]
+# run
+ENTRYPOINT ["pm2-runtime", "ecosystem.config.js"]

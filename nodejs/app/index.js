@@ -7,22 +7,37 @@ const path = require('path');
 // Constants
 const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST || '127.0.0.1';
+const PUBLIC_DIR = process.env.PUBLIC_DIR || './tmp/public';
+const UPLOAD_DIR = process.env.UPLOAD_DIR || './tmp/upload';
 
 const server = http.createServer((req, res) => {
     const { url } = req;
     console.log('Got request');
-    if (fs.existsSync(path.join(process.env.PUBLIC_DIR, url))) {
+    if (fs.existsSync(path.join(PUBLIC_DIR, url))) {
         res.writeHead(200);
         res.end("found");
     } else {
-        res.writeHead(404);
-        res.end("not found");
+        if (url.startsWith('/upload')) {
+            fs.writeFile(path.join(UPLOAD_DIR, 'uploaded.txt'), url, (err) => {
+                if (err) {
+                    res.writeHead(500);
+                    res.end(err.message);
+                } else {
+                    res.writeHead(200);
+                    res.end("uploaded");
+                }
+            });
+        } else {
+            res.writeHead(404);
+            res.end("not found");
+        }
     }
 });
 
 server.listen(PORT, HOST, () => {
-    console.log(`PUBLIC_DIR: ${process.env.PUBLIC_DIR}`);
-    console.log(`UPLOAD_DIR: ${process.env.UPLOAD_DIR}`);
+    console.log(`ENV: ${process.env.NODE_ENV}`);
+    console.log(`PUBLIC_DIR: ${PUBLIC_DIR}`);
+    console.log(`UPLOAD_DIR: ${UPLOAD_DIR}`);
     console.log(`listening on ${HOST}:${PORT}`);
 });
 
