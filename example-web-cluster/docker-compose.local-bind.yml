@@ -9,7 +9,7 @@ services:
     ports:
       - "2337:8080"
     networks:
-      - br10
+      - backend
     volumes:
       - type: bind
         source: ./var/public
@@ -34,7 +34,7 @@ services:
     ports:
       - "8080:80"
     networks:
-      - br10
+      - backend
     volumes:
       - type: bind
         source: ./nginx-conf
@@ -56,11 +56,10 @@ services:
         condition: on-failure
 
 networks:
-  br10:
-    external:
-      name: br10
+  backend:
+    #name: wabapp-backend
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/8
 
-volumes:
-  howto_volume:
-    external:
-      name: howto_volume

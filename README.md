@@ -78,7 +78,11 @@ docker run --rm -itd --name webserver -p 8080:80 --network br10 \
 ### With docker-compose
 
 ```sh
+# build
 docker-compose -f volume/docker-compose.development.yml build
+# run
+docker-compose -f volume/docker-compose.development.yml up
+
 ```
 
 ## Volume and docker-compose
