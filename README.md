@@ -40,8 +40,8 @@ docker build --file nodejs/app/dockerfile.development --tag webapp:nodejs ./node
 
 # run with temp container
 docker run --rm -it --name nodejs-test -p 2337:8080 \
-  --mount type=bind,src=`pwd`/nodejs/nodejs-volume/var/public,dst=/var/public,readonly \
-  --mount type=bind,src=`pwd`/nodejs/nodejs-volume/var/upload,dst=/var/upload \
+  --mount type=bind,source="$(pwd)"/nodejs/nodejs-volume,target=/volume-ro,readonly \
+  --mount type=bind,source="$(pwd)"/nodejs/nodejs-volume,target=/volume-rw \
   webapp:nodejs
 ```
 
@@ -62,16 +62,8 @@ docker network create \
   br10
 
 # run with the same network
-docker run --rm -itd --name webapp -p 2337:8080 --network br10 \
-  --mount type=bind,src=`pwd`/volume/var/public,dst=/var/public,readonly \
-  --mount type=bind,src=`pwd`/volume/var/upload,dst=/var/upload \
-  webapp:nodejs
-
-docker run --rm -itd --name webserver -p 8080:80 --network br10 \
-  --mount type=bind,source="$(pwd)"/volume/nginx-conf,target=/etc/nginx,readonly,bind-propagation=rslave \
-  --mount type=bind,source="$(pwd)"/volume/var/public,target=/var/public,readonly,bind-propagation=rslave \
-  --mount type=bind,source="$(pwd)"/volume/var/log/nginx,target=/var/log/nginx,bind-propagation=rslave \
-  webserver:nginx
+docker run --rm -itd --name webapp -p 2337:8080 --network br10 webapp:nodejs
+docker run --rm -itd --name webserver -p 8080:80 --network br10 webserver:nginx
 ```
 
 ## Volume

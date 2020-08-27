@@ -9,12 +9,12 @@ FROM node:12.18-alpine3.12
 
 # directories
 # read only
-ENV PUBLIC_DIR '/var/public'
+ENV PUBLIC_DIR '/volume-ro/public'
 # read-write
-ENV UPLOAD_DIR '/var/upload'
+ENV UPLOAD_DIR '/volume-rw/upload'
 RUN mkdir -p ${PUBLIC_DIR} ${UPLOAD_DIR}
 # volumes to be bind at runtime
-VOLUME [ "${PUBLIC_DIR}", "${UPLOAD_DIR}" ]
+VOLUME [ "/volume-ro", "/volume-rw" ]
 
 # host and port
 # NOT 127.0.0.1 but 0.0.0.0
