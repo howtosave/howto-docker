@@ -1,6 +1,6 @@
 # Web Cluster Example
 
-docker-compose를 이용해서 아라 구성 요소들을 cluster로 구성한다.
+docker-compose를 이용해서 아래 구성 요소들을 cluster로 구성한다.
 
 - Web Server: nginx
 - Web Ap: node.js
@@ -18,7 +18,7 @@ docker network create \
   backend-network
 ```
 
-## Using the existing volume
+## Using the existing 'volume type' volume
 
 ```sh
 # create volume
@@ -29,21 +29,19 @@ docker run --rm -it --name temp-alpine \
     --volume example_web_cluster_volume:/volume \
     --mount type=bind,source="$(pwd)"/wc-volume,target=/local \
     alpine:3.12.0 /bin/sh
-# and do copy necessary files
+# and do copy necessary files in /local to /volume
 
 # build
 docker-compose -f docker-compose.volume-type.yml build
 # run
 docker-compose -f docker-compose.volume-type.yml up
-
 ```
 
-## Using local directory binding
+## Using 'bind type' volume
 
 ```sh
 # build
 docker-compose -f docker-compose.bind-type.yml build
 # run
 docker-compose -f docker-compose.bind-type.yml up
-
 ```
