@@ -5,6 +5,9 @@ services:
     build:
       context: ../nginx
       dockerfile: dockerfile
+      args:
+        volume_ro: /volume-ro
+        volume_rw: /volume-rw
     image: webserver:nginx
     ports:
       - "8080:80"
@@ -30,6 +33,10 @@ services:
     build:
       context: ../nodejs/app
       dockerfile: dockerfile.pm2
+      args:
+        volume_ro: /volume-ro
+        volume_rw: /volume-rw
+        port: 8080
     image: webapp:pm2
     ports:
       - "2337:8080"

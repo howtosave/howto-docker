@@ -1,5 +1,5 @@
 #
-# Nginx Development Mode
+# Nginx Production Mode
 #
 # See https://docs.docker.com/engine/reference/builder/
 #
@@ -7,22 +7,26 @@
 # See https://hub.docker.com/_/nginx
 FROM nginx:1.19.2-alpine
 
+ARG volume_ro=/volume-ro
+ARG volume_rw=/volume-rw
+
+RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}"
+
 #
 # directories
 #
 
 # read only
-ENV NGINX_DIR '/volume-ro/nginx-conf'
-ENV PUBLIC_DIR '/volume-ro/public'
+ENV NGINX_DIR "${volume_ro}/nginx-conf"
+ENV PUBLIC_DIR "${volume_ro}/public"
 
 # read-write
-ENV SRV_DIR '/volume-rw/log/nginx'
-RUN mkdir -p ${PUBLIC_DIR} ${SRV_DIR}
+ENV LOG_DIR "${volume_rw}/log/nginx"
 
 # volumes to be bind at runtime
-VOLUME [ "/volume-ro", "/volume-rw" ]
+VOLUME [ "${volume_ro}", "${volume_rw}" ]
 
 #
 # run
-#
-ENTRYPOINT ["nginx", "-c", "/volume-ro/nginx-conf/nginx.conf", "-g", "daemon off;"]
+# use *shell form* for variable substitution
+ENTRYPOINT nginx -c "$NGINX_DIR/nginx.conf" -g "daemon off;"

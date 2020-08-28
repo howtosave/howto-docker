@@ -23,34 +23,77 @@ docker --version
 
 ```sh
 # build
-docker build --file nginx/dockerfile.development --tag webserver:nginx_d ./nginx
-# or docker build --file nginx/dockerfile --tag webserver:nginx ./nginx
+docker build --file nginx/dockerfile.development \
+  --tag webserver:nginx_d \
+  --build-arg volume_ro=/volume-ro \
+  --build-arg volume_rw=/volume-rw \
+  ./nginx
+# or
+docker build --file nginx/dockerfile \
+  --tag webserver:nginx \
+  --build-arg volume_ro=/volume-ro \
+  --build-arg volume_rw=/volume-rw \
+  ./nginx
 
 # run with temp container
-docker run --rm -it --name nginx-test -p 8080:80 \
+docker run --rm -it --name nginx-dev -p 8080:80 \
+  --mount type=bind,source="$(pwd)"/nginx/nginx-volume,target=/volume-ro,readonly \
+  --mount type=bind,source="$(pwd)"/nginx/nginx-volume,target=/volume-rw \
+  webserver:nginx_d
+# or
+docker run --rm -it --name nginx-prod -p 8080:80 \
   --mount type=bind,source="$(pwd)"/nginx/nginx-volume,target=/volume-ro,readonly \
   --mount type=bind,source="$(pwd)"/nginx/nginx-volume,target=/volume-rw \
   webserver:nginx
+
+#check
+curl -s http://localhost:8080 | grep 'ok'
 ```
 
 ## NodeJS
 
+### Development mode
+
 ```sh
- # build
-docker build --file nodejs/app/dockerfile.development --tag webapp:nodejs_d ./nodejs/app
-# or docker build --file nodejs/app/dockerfile.pm2 --tag webapp:pm2 ./nodejs/app
+# build
+docker build --file nodejs/app/dockerfile.development \
+  --tag webapp:nodejs_d \
+  --build-arg volume_ro=/volume-ro \
+  --build-arg volume_rw=/volume-rw \
+  --build-arg port=2337 \
+  ./nodejs/app
 
 # run with temp container
-docker run --rm -it --name nodejs-test -p 2337:8080 \
+docker run --rm -it --name nodejs-dev -p 2337:2337 \
   --mount type=bind,source="$(pwd)"/nodejs/nodejs-volume,target=/volume-ro,readonly \
   --mount type=bind,source="$(pwd)"/nodejs/nodejs-volume,target=/volume-rw \
-  webapp:nodejs
-# or
-docker run --rm -it --name nodejs-test -p 2337:8080 \
+  webapp:nodejs_d
+
+# check
+curl -s http://localhost:2337 | grep 'ok'
+curl -s http://localhost:2337/upload/test | grep 'ok'
+```
+
+### PM2 mode
+
+```sh
+# build
+docker build --file nodejs/app/dockerfile.pm2 \
+  --tag webapp:pm2 \
+  --build-arg volume_ro=/volume-ro \
+  --build-arg volume_rw=/volume-rw \
+  --build-arg port=2337 \
+  ./nodejs/app
+
+# run with temp container
+docker run --rm -it --name nodejs-test -p 2337:2337 \
   --mount type=bind,source="$(pwd)"/nodejs/nodejs-volume,target=/volume-ro,readonly \
   --mount type=bind,source="$(pwd)"/nodejs/nodejs-volume,target=/volume-rw \
   webapp:pm2
 
+# check
+curl -s http://localhost:2337 | grep 'ok'
+curl -s http://localhost:2337/upload/test | grep 'ok'
 ```
 
 ## Network

@@ -12,24 +12,25 @@ const UPLOAD_DIR = process.env.UPLOAD_DIR || './tmp/upload';
 
 const server = http.createServer((req, res) => {
     const { url } = req;
+    const fpath = path.join(PUBLIC_DIR, url);
     console.log('Got request');
-    if (fs.existsSync(path.join(PUBLIC_DIR, url))) {
+    if (fs.existsSync(fpath)) {
         res.writeHead(200);
-        res.end("found");
+        res.end("ok. found: " + fpath);
     } else {
-        if (url.startsWith('/upload')) {
+        if (url.match('/*\/upload\/*/')) {
             fs.writeFile(path.join(UPLOAD_DIR, 'uploaded.txt'), url, (err) => {
                 if (err) {
                     res.writeHead(500);
-                    res.end(err.message);
+                    res.end(`error. ${err.message}`);
                 } else {
                     res.writeHead(200);
-                    res.end("uploaded");
+                    res.end("ok. uploaded");
                 }
             });
         } else {
             res.writeHead(404);
-            res.end("not found");
+            res.end("error. not found: " + fpath);
         }
     }
 });
