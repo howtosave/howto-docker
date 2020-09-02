@@ -8,8 +8,8 @@ services:
       args:
         volume_ro: /volume-ro
         volume_rw: /volume-rw
-    image: webserver:nginx
-    ports:
+    image: howto:nginx
+    ports: # local:remote
       - "8080:80"
     networks:
       - backend-network
@@ -36,10 +36,14 @@ services:
       args:
         volume_ro: /volume-ro
         volume_rw: /volume-rw
-        port: 8080
-    image: webapp:pm2
-    ports:
-      - "2337:8080"
+    image: howto:pm2
+    environment:
+      - PORT=2337
+      - NODE_ENV=production
+    ports: # local:remote
+      - "2337:2337"
+    expose:
+      - 2337
     networks:
       - backend-network
     volumes:

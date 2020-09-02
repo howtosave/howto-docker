@@ -23,7 +23,7 @@ ENV PUBLIC_DIR "${volume_ro}/public"
 # read-write
 ENV LOG_DIR "${volume_rw}/log/nginx"
 
-# volumes to be bind at runtime
+# volumes to be bound at runtime
 VOLUME [ "${volume_ro}", "${volume_rw}" ]
 
 #

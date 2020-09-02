@@ -35,6 +35,9 @@ docker run --rm -it --name temp-alpine \
 # and do copy necessary files in /local to /volume
 # cp -r /local/* /volume
 
+# clean
+docker-compose -f docker-compose.volume-type.yml down
+
 # build
 docker-compose -f docker-compose.volume-type.yml build
 
