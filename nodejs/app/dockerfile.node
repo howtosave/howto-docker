@@ -9,10 +9,8 @@ FROM node:12.18-alpine3.12
 
 ARG volume_ro=/volume-ro
 ARG volume_rw=/volume-rw
-ARG node_env=development
-ARG port=8080
 
-RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}, node_env: ${node_env}, port: ${port}"
+RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}"
 
 #
 # directories and volumes
@@ -34,15 +32,6 @@ VOLUME [ "${volume_ro}", "${volume_rw}" ]
 
 # NOT 127.0.0.1 but 0.0.0.0
 ENV HOST '0.0.0.0'
-ENV PORT ${port}
-EXPOSE ${PORT}
-
-#
-# misc.
-#
-
-# env mode
-ENV NODE_ENV "${node_env}"
 
 #
 # copy and install
@@ -54,8 +43,9 @@ WORKDIR /usr/src/app
 # Bundle app source
 COPY . .
 RUN yarn install --frozen-lockfile
+RUN ls -al
 
 #
 # run
 #
-ENTRYPOINT ["node", "index.js"]
+ENTRYPOINT ["node", "src/index.js"]

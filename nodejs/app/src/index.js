@@ -1,5 +1,14 @@
 'use-strict';
 
+//
+// load .env
+//
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config({
+  path: require('fs').existsSync(`.env.${process.env.NODE_ENV}.local`)
+    ? `.env.${process.env.NODE_ENV}.local` : `.env.${process.env.NODE_ENV}`,
+});
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -37,6 +46,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, HOST, () => {
     console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+    console.log(`DB_NAME: ${process.env.DB_NAME}`);
     console.log(`PUBLIC_DIR: ${PUBLIC_DIR}`);
     console.log(`UPLOAD_DIR: ${UPLOAD_DIR}`);
     console.log(`LOG_DIR: ${process.env.LOG_DIR}`);
