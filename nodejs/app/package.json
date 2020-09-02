@@ -1,21 +1,22 @@
 {
   "name": "webapp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "dependencies": {
     "dotenv": "~8.2.0"
   },
   "scripts": {
-    "echo": "echo $INIT_CWD",
-    "dev": "env NODE_ENV=development node index.js",
+    "dev": "env NODE_ENV=development node src/index.js",
     "_build:docker": "docker build --build-arg volume_ro=/volume-ro --build-arg volume_rw=/volume-rw --build-arg node_env=$NODE_ENV --build-arg port=2337 ./",
     "build:docker:pm2": "env NODE_ENV=production yarn _build:docker -- --file dockerfile.pm2 --tag howto:pm2",
+    "build:docker:pm2-dev": "env NODE_ENV=development yarn _build:docker -- --file dockerfile.pm2-dev --tag howto:pm2-dev",
     "build:docker:node": "env NODE_ENV=production yarn _build:docker -- --file dockerfile.node --tag howto:node",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "start:pm2": "pm2 start ecosystem.config.js",
-    "_start:docker": "docker run --rm -it -p 2337:2337 --mount type=bind,source=$INIT_CWD/tmp,target=/volume-ro,readonly --mount type=bind,source=$INIT_CWD/tmp,target=/volume-rw ",
-    "docker:pm2": "yarn _start:docker -- --name pm2-test howto:pm2",
-    "docker:node": "yarn _start:docker -- --name node-test howto:node"
+    "_start:docker": "docker run --rm -it -p 2337:2337 --mount type=bind,source=$INIT_CWD/tmp,target=/volume-ro,readonly --mount type=bind,source=$INIT_CWD/tmp,target=/volume-rw",
+    "docker:pm2": "yarn _start:docker --name pm2-test howto:pm2",
+    "docker:pm2-dev": "yarn _start:docker --mount type=bind,source=$INIT_CWD,target=/workdir --name pm2-dev-test howto:pm2-dev",
+    "docker:node": "yarn _start:docker --name node-test howto:node"
   }
 }

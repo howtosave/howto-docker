@@ -1,5 +1,5 @@
 #
-# NodeJS Development Mode
+# NodeJS PM2 Mode
 #
 # See https://docs.docker.com/engine/reference/builder/
 #
@@ -21,17 +21,6 @@ ARG port=8080
 RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}, node_env: ${node_env}, port: ${port}"
 
 #
-# copy and install
-#
-
-# Create and goto app directory
-WORKDIR /usr/src/app
-
-# Bundle app source
-COPY . .
-RUN yarn install --frozen-lockfile
-
-#
 # directories and volumes
 #
 
@@ -40,7 +29,7 @@ ENV PUBLIC_DIR "${volume_ro}/public"
 
 # read-write
 ENV UPLOAD_DIR "${volume_rw}/upload"
-ENV LOG_DIR '${volume_rw}/log/pm2'
+ENV LOG_DIR "${volume_rw}/log/pm2"
 
 # volumes to be bound at runtime
 VOLUME [ "${volume_ro}", "${volume_rw}" ]
@@ -62,9 +51,17 @@ EXPOSE ${PORT}
 ENV NODE_ENV "${node_env}"
 
 #
+# copy and install
+#
+
+# Create and goto app directory
+WORKDIR /usr/src/app
+
+# Bundle app source
+COPY . .
+RUN yarn install --frozen-lockfile
+
+#
 # run
 # use *shell form* for variable substitution
 ENTRYPOINT pm2-runtime ecosystem.config.js --env "$NODE_ENV"
-
-# TODO: use pm2-dev on dev mode
-# See https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/#development-environment

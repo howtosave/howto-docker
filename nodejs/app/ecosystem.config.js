@@ -46,11 +46,22 @@ const post_deploy = [
   'yarn install --production --frozen-lockfile',
 ];
 
+// See https://pm2.keymetrics.io/docs/usage/watch-and-restart/
+const watch_options = {
+  watch: process.env.NODE_ENV === 'production' ? false : ['src'],
+  // Delay between restart
+  watch_delay: 1000,
+  ignore_watch: [ "node_modules", "tmp", "tests", "**/*.(spec|test).[tj]s" ],
+  watch_options: {
+    "followSymlinks": false
+  }
+};
+
 module.exports = {
   apps: [
     {
       name: PROJECT_NAME,
-      script: './index.js',
+      script: './src/index.js',
       args: '',
       instances: INSTANCE_COUNT,
       exec_mode: "cluster",
@@ -66,6 +77,7 @@ module.exports = {
       log_date_format: 'YY-MM-DD HH:mm:ss',    
       error_file: `${LOG_DIR}/error.log`,
       out_file: `${LOG_DIR}/access.log`, // disable: "/dev/null"
+      ...watch_options,
     },
   ],
   

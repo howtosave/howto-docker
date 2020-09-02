@@ -36,9 +36,10 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-    console.log(`ENV: ${process.env.NODE_ENV}`);
+    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
     console.log(`PUBLIC_DIR: ${PUBLIC_DIR}`);
     console.log(`UPLOAD_DIR: ${UPLOAD_DIR}`);
+    console.log(`LOG_DIR: ${process.env.LOG_DIR}`);
     console.log(`listening on ${HOST}:${PORT}`);
 });
 
