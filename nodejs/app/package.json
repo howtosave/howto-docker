@@ -7,7 +7,15 @@
     "dotenv": "~8.2.0"
   },
   "scripts": {
+    "echo": "echo $INIT_CWD",
+    "dev": "env NODE_ENV=development node index.js",
+    "_build:docker": "docker build --build-arg volume_ro=/volume-ro --build-arg volume_rw=/volume-rw --build-arg node_env=$NODE_ENV --build-arg port=2337 ./",
+    "build:docker:pm2": "env NODE_ENV=production yarn _build:docker -- --file dockerfile.pm2 --tag howto:pm2",
+    "build:docker:node": "env NODE_ENV=production yarn _build:docker -- --file dockerfile.node --tag howto:node",
     "start": "node index.js",
-    "start:pm2": "pm2 start"
+    "start:pm2": "pm2 start ecosystem.config.js",
+    "_start:docker": "docker run --rm -it -p 2337:2337 --mount type=bind,source=$INIT_CWD/tmp,target=/volume-ro,readonly --mount type=bind,source=$INIT_CWD/tmp,target=/volume-rw ",
+    "docker:pm2": "yarn _start:docker -- --name pm2-test howto:pm2",
+    "docker:node": "yarn _start:docker -- --name node-test howto:node"
   }
 }

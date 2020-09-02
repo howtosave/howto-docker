@@ -4,40 +4,25 @@
 # See https://docs.docker.com/engine/reference/builder/
 #
 
-# See https://hub.docker.com/_/node
-FROM node:12.18-alpine3.12
+# See https://hub.docker.com/r/keymetrics/pm2
+FROM keymetrics/pm2:12-alpine
 
 # pm2 installation
-RUN npm install pm2 -g
+#RUN pm2 install pm2-server-monit
 
+#
+# arguments
+#
 ARG volume_ro=/volume-ro
 ARG volume_rw=/volume-rw
+ARG node_env=development
 ARG port=8080
 
-RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}, port: ${port}"
+RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}, node_env: ${node_env}, port: ${port}"
 
 #
-# directories
+# copy and install
 #
-
-# read only
-ENV PUBLIC_DIR "${volume_ro}/public"
-
-# read-write
-ENV UPLOAD_DIR "${volume_rw}/upload"
-ENV LOG_DIR '${volume_rw}/log/pm2'
-
-# volumes to be bind at runtime
-VOLUME [ "${volume_ro}", "${volume_rw}" ]
-
-# host and port
-# NOT 127.0.0.1 but 0.0.0.0
-ENV HOST '0.0.0.0'
-ENV PORT ${port}
-EXPOSE ${PORT}
-
-# env mode
-ENV NODE_ENV "production"
 
 # Create and goto app directory
 WORKDIR /usr/src/app
@@ -47,6 +32,39 @@ COPY . .
 RUN yarn install --frozen-lockfile
 
 #
+# directories and volumes
+#
+
+# read only
+ENV PUBLIC_DIR "${volume_ro}/public"
+
+# read-write
+ENV UPLOAD_DIR "${volume_rw}/upload"
+ENV LOG_DIR '${volume_rw}/log/pm2'
+
+# volumes to be bound at runtime
+VOLUME [ "${volume_ro}", "${volume_rw}" ]
+
+#
+# host and port
+#
+
+# NOT 127.0.0.1 but 0.0.0.0
+ENV HOST '0.0.0.0'
+ENV PORT ${port}
+EXPOSE ${PORT}
+
+#
+# misc.
+#
+
+# env mode
+ENV NODE_ENV "${node_env}"
+
+#
 # run
 # use *shell form* for variable substitution
 ENTRYPOINT pm2-runtime ecosystem.config.js --env "$NODE_ENV"
+
+# TODO: use pm2-dev on dev mode
+# See https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/#development-environment
