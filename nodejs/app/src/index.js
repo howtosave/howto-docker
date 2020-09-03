@@ -50,6 +50,7 @@ server.listen(PORT, HOST, () => {
     console.log(`PUBLIC_DIR: ${PUBLIC_DIR}`);
     console.log(`UPLOAD_DIR: ${UPLOAD_DIR}`);
     console.log(`LOG_DIR: ${process.env.LOG_DIR}`);
+    console.log(`SECRET_KEY: ${process.env.SECRET_KEY}`);
     console.log(`listening on ${HOST}:${PORT}`);
 });
 

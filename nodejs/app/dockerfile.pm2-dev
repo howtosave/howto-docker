@@ -17,6 +17,9 @@ ENV NODE_ENV development
 # goto app directory
 WORKDIR /workdir
 
+# misc
+ENV SECRET_KEY "at-docker-file-pm2-dev"
+
 #
 # run. use pm2-dev on dev mode
 # See https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/#development-environment

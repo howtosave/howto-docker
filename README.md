@@ -144,3 +144,38 @@ docker run --rm -it --name volume-test \
     --volume howto-volume-nfs:/volume-nfs \
     alpine:3.12.0 /bin/sh
 ```
+
+## Guide line
+
+- Dockerfile 작성 시 작업 중 자주 변경되는 항목은 뒤쪽에 배치한다.
+- 그 이유는 cached image를 최대한 사용하기 위해서이다.
+
+- env variable은 dotenv > Dockerfile > command line 순으로 적용된다.
+- 예를 들어, SECRET_KEY 환경변수에 대해
+  - .env에서 "dotenv"로 설정하고, Dockerfile에서 "docker"로 설정하면
+  - process.env.SECRET_KEY는 "docker"가 된다.
+
+- Dockerfile 빌드 시에 arguments를 전달해서 image를 만든다.
+  - docker-build 예시:
+  ```sh
+  docker build --build-arg volume_ro=/volume-ro --tag howto:pm2
+  ```
+  - docker-compose 예시:
+  ```yml
+  build:
+    args:
+      volume_ro: /volume-ro
+  image: howto:pm2
+  ```
+
+- Docker image 실행 시에 env variables을 전달해서 container를 만든다.
+  - docker-run 예시
+  ```sh
+  docker run -e NODE_ENV=production -e PORT=2337 --name pm2-test howto:pm2
+  ```
+  - docker-compose 예시:
+  ```yml
+  environment:
+    - PORT=2337
+    - NODE_ENV=production
+  ```

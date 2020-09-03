@@ -51,6 +51,9 @@ COPY . .
 RUN yarn install --frozen-lockfile
 RUN ls -al
 
+# misc
+ENV SECRET_KEY "at-docker-file-pm2"
+
 #
 # run
 # use *shell form* for variable substitution

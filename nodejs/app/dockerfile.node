@@ -45,6 +45,9 @@ COPY . .
 RUN yarn install --frozen-lockfile
 RUN ls -al
 
+# misc
+ENV SECRET_KEY "at-docker-file-node"
+
 #
 # run
 #
