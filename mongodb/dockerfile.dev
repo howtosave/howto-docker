@@ -1,12 +1,8 @@
 #
-# MongoDB Production Mode
+# MongoDB Development Mode
 #
 
-# See https://hub.docker.com/_/mongo
-FROM mongo:4.4.3-bionic
+FROM howto:mongo
 
-ARG volume_ro=/volume-ro
-ARG volume_rw=/volume-rw
 
-RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}"
 

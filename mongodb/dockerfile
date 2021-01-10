@@ -5,20 +5,10 @@
 # See https://hub.docker.com/_/mongo
 FROM mongo:4.4.3-bionic
 
-ARG volume_ro=/volume-ro
-ARG volume_rw=/volume-rw
-
-RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}"
-
-ENV MONGO_DATA_DIR "${volume_rw}/mongo-data"
-ENV MONGO_LOG_DIR "${volume_rw}/log/mongodb"
 ENV MONGO_INITDB_ROOT_USERNAME "myadmin"
 ENV MONGO_INITDB_ROOT_PASSWORD "myadmin00"
-ENV MONGODB_USERNAME "test"
-ENV MONGODB_PASSWORD "test00"
-ENV MONGODB_DATABASE "test"
 
-# volumes to be bound at runtime
-VOLUME [ "${volume_ro}", "${volume_rw}" ]
+ENTRYPOINT mongod
 
-CMD ["mongod","--config","${volume_ro}/mongo-conf/mongod.conf"]
+# TODO
+# ENTRYPOINT mongod --config "/etc/mongo/mongod.conf"

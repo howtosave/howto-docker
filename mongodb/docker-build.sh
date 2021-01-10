@@ -13,13 +13,10 @@ _ENV=${1:-"dev"}
 if [ "$_ENV" == "dev" ]; then
     docker build --file "$ROOT_DIR/dockerfile.dev" \
         --tag howto:mongo_dev \
-        --build-arg volume_ro=/volume-ro \
-        --build-arg volume_rw=/volume-rw \
         "$ROOT_DIR"
 elif [ "$_ENV" == "prod" ]; then
     docker build --file "$ROOT_DIR/dockerfile" \
         --tag howto:mongo \
-        --build-arg volume_ro=/volume-ro \
         --build-arg volume_rw=/volume-rw \
         "$ROOT_DIR"
 else
