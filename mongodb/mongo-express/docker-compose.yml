@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: renatogroffe
+      ME_CONFIG_BASICAUTH_PASSWORD: MongoExpress2019!
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: myadmin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: myadmin00
+    networks:
+      - nwas_default
+      
+networks: 
+  nwas_default:
+    external: 
+      name: bridge
