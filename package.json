@@ -1,0 +1,15 @@
+{
+  "name": "howto-docker",
+  "version": "1.0.0",
+  "main": "",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "scripts": {
+    "gc:projectinfo": "gcloud compute project-info describe",
+    "pregc:dbssh": "gcloud compute config-ssh --ssh-key-file ~/.ssh/gce-howto-docker.id_rsa",
+    "gc:dbssh": "ssh database-1.asia-northeast3-c.howto-docker",
+    "gc:config": "gcloud config configurations activate howto-docker",
+    "gc:ssh": "gcloud beta cloud-shell ssh"
+  }
+}
