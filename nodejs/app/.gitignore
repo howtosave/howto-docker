@@ -117,6 +117,7 @@ lib-cov
 lcov.info
 pids
 logs
+uploads
 results
 node_modules
 .node_history

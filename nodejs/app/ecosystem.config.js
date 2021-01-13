@@ -71,9 +71,6 @@ module.exports = {
       env_production: {
         NODE_ENV: "production",
       },
-      env_staging: {
-        NODE_ENV: "staging",
-      },
       log_date_format: 'YY-MM-DD HH:mm:ss',    
       error_file: `${LOG_DIR}/error.log`,
       out_file: `${LOG_DIR}/access.log`, // disable: "/dev/null"
