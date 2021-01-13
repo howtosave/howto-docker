@@ -7,45 +7,24 @@ _usage() {
 }
 
 _SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT_DIR=$_SCRIPT_DIR/app
+ROOT_DIR=$_SCRIPT_DIR
+_ENV=${1:-"dev"}
 
-VOLUME_TYPE="bind" # local
-VOLUME_NAME="howto_volume"
-VOLUME_RO_NAME="howto_ro_volume"
-
-_create_bind_volume() {
-  local name="$1"
-  docker volume create \
-    --driver=bridge \
-    --subnet=10.0.0.0/8 \
-    --ip-range=10.255.255.255/8 \
-    --gateway=10.0.0.1 \
-    "$name"
-
-}
-
-_ensure_volume() {
-  local name="$1"
-  # check network
-  docker volume inspect "$name" > /dev/null
-  if [ "$?" != "0" ]; then
-    # create network
-    docker volume create \
-      --driver=bridge \
-      --subnet=10.0.0.0/8 \
-      --ip-range=10.255.255.255/8 \
-      --gateway=10.0.0.1 \
-      "$name"
-  fi
-}
+source "$ROOT_DIR/_config.sh"
 
 if [ "$_ENV" == "dev" ]; then
   # check volumes
-  _ensure_volume "$VOLUME_NAME"
-  _ensure_volume "$VOLUME_RO_NAME"
+  docker run --rm -it --name volume-dev -p 8080:80 --network "$NETWORK_NAME" \
+      --mount type=bind,source="$ROOT_DIR/docker-volumes",target=/volume \
+      --entrypoint /bin/bash --user node --workdir /home/node \
+      node:10.23.1-stretch
 
-  docker volume inspect "$VOLUME_NAME"
-  docker volume inspect "$VOLUME_RO_NAME"
+      #--mount type=bind,source="$ROOT_DIR/docker-volumes/ro",target=/volume-ro,readonly \
+      #--mount type=bind,source="$ROOT_DIR/docker-volumes/rw",target=/volume-rw \
+
+  # run the following command on the terminal to copy files under host to the docker container
+  # scp -r peterk@10.0.0.1:~/howto-docker/nginx/nginx-volume/etc-nginx /volume/ro
+  # mkdir -p /volume/rw/var/log /volume/rw/var/run /volume/rw/var/mongo-data
 elif [ "$_ENV" == "prod" ]; then
   echo "NOOP for production"
 else

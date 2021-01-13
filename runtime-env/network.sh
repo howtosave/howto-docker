@@ -7,10 +7,12 @@ _usage() {
 }
 
 _SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-ROOT_DIR=$_SCRIPT_DIR/app
+ROOT_DIR=$_SCRIPT_DIR
+_ENV=${1:-"dev"}
+
+source "$ROOT_DIR/_config.sh"
 
 if [ "$_ENV" == "dev" ]; then
-  NETWORK_NAME="br10"
   # check network
   docker network inspect "$NETWORK_NAME" > /dev/null
   if [ "$?" != "0" ]; then
