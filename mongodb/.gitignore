@@ -1,5 +1,5 @@
 
-mongo-data
-log
-run
+**/mongo/data/
+**/mongo/log
+**/mongo/run
 

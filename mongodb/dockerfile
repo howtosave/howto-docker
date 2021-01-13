@@ -5,10 +5,16 @@
 # See https://hub.docker.com/_/mongo
 FROM mongo:4.4.3-bionic
 
-ENV MONGO_INITDB_ROOT_USERNAME "myadmin"
-ENV MONGO_INITDB_ROOT_PASSWORD "myadmin00"
+ARG etc_mongo=/etc/mongo
+ARG var_mongo=/var/mongo
 
-ENTRYPOINT mongod
+RUN echo "ARGs: etc_mongo: ${etc_mongo}, var_mongo: ${var_mongo}"
 
-# TODO
-# ENTRYPOINT mongod --config "/etc/mongo/mongod.conf"
+ENV MONGO_INITDB_ROOT_USERNAME "myroot"
+ENV MONGO_INITDB_ROOT_PASSWORD "myroot00"
+
+ENV MONGO_DIR "${etc_mongo}"
+# volumes to be bound at runtime
+VOLUME [ "${etc_mongo}", "${var_mongo}" ]
+
+ENTRYPOINT mongod --config "$MONGO_DIR/mongod.conf"

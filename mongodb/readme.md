@@ -7,19 +7,19 @@
 ## start mongo server instance
 
 ```sh
-$ docker run -d --name dev-mongo mongo:4.0.10-xenial
+docker run -d --name dev-mongo mongo:4.0.10-xenial
 ```
 
 ## Using a custom MongoDB configuration file
 
 ```sh
-$ docker run -d --name dev-mongo -v ./custom:/etc/mongo mongo:4.0.10-xenial --config /etc/mongo/mongod.conf
+docker run -d --name dev-mongo -v ./custom:/etc/mongo mongo:4.0.10-xenial --config /etc/mongo/mongod.conf
 ```
 
 ## Environment Variables
 
 ```sh
-$ docker run -d --name dev-mongo \
+docker run -d --name dev-mongo \
     -e MONGO_INITDB_ROOT_USERNAME=myadmin \
     -e MONGO_INITDB_ROOT_PASSWORD=myadmin00 \
     mongo:4.0.10-xenial
@@ -30,15 +30,15 @@ $ docker run -d --name dev-mongo \
 - interactive shell
 
 ```sh
-$ docker exec -it dev-mongo bash
+docker exec -it dev-mongo bash
 # mongodb server log
-$ docker logs dev-mongo
+docker logs dev-mongo
 ```
 
 - connect as admin
 
 ```sh
-$ docker exec -it mongodb-4.0.10-xenial \
+docker exec -it mongodb-4.0.10-xenial \
     mongo --host 127.0.0.1 \
         -u myadmin \
         -p myadmin00 \
@@ -60,7 +60,7 @@ $ docker exec -it mongodb-4.0.10-xenial \
 ### mongo-express
 
 ```sh
-$ docker run -it --rm \
+docker run -it --rm \
     --network mongo_default \
     --name mongo-express \
     -p 8081:8081 \
@@ -70,7 +70,7 @@ $ docker run -it --rm \
     -e ME_CONFIG_MONGODB_ADMINPASSWORD="myadmin00" \
     mongo-express
 
-$ docker run -it --rm \
+docker run -it --rm \
     --network mongo_default \
     --name mongo-express \
     -p 8081:8081 \

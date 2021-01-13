@@ -4,5 +4,4 @@
 
 FROM howto:mongo
 
-
-
+ENTRYPOINT mongod --bind_ip 0.0.0.0 --port 27017
