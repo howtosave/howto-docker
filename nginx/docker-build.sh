@@ -16,8 +16,8 @@ if [ "$_ENV" == "dev" ]; then
   echo
   docker build --file "$ROOT_DIR/dockerfile.dev" \
     --tag howto:nginx_dev \
-    --build-arg volume_ro=/volume-ro \
-    --build-arg volume_rw=/volume-rw \
+    --build-arg etc_nginx=/etc/nginx \
+    --build-arg var_nginx=/var/nginx \
     "$ROOT_DIR"
 elif [ "$_ENV" == "prod" ]; then
   echo
@@ -25,7 +25,8 @@ elif [ "$_ENV" == "prod" ]; then
   echo
   docker build --file "$ROOT_DIR/dockerfile" \
     --tag howto:nginx \
-    --build-arg volume_ro=/volume-ro \
+    --build-arg etc_nginx=/etc/nginx \
+    --build-arg var_nginx=/var/nginx \
     --build-arg volume_rw=/volume-rw \
     "$ROOT_DIR"
 else

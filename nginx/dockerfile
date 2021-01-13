@@ -7,24 +7,24 @@
 # See https://hub.docker.com/_/nginx
 FROM nginx:1.19.2-alpine
 
-ARG volume_ro=/volume-ro
-ARG volume_rw=/volume-rw
+ARG etc_nginx=/etc/nginx
+ARG var_nginx=/var/nginx
 
-RUN echo "ARGs: volume_ro: ${volume_ro}, volume_rw: ${volume_rw}"
+RUN echo "ARGs: etc_nginx: ${etc_nginx}, var_nginx: ${var_nginx}"
 
 #
 # directories
 #
 
 # read only
-ENV NGINX_DIR "${volume_ro}/nginx-conf"
-ENV PUBLIC_DIR "${volume_ro}/public"
+ENV NGINX_DIR "${etc_nginx}"
+ENV PUBLIC_DIR "${etc_nginx}/public"
 
 # read-write
-ENV LOG_DIR "${volume_rw}/log/nginx"
+ENV LOG_DIR "${var_nginx}/log/nginx"
 
 # volumes to be bound at runtime
-VOLUME [ "${volume_ro}", "${volume_rw}" ]
+VOLUME [ "${etc_nginx}", "${var_nginx}" ]
 
 #
 # run
