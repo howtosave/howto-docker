@@ -93,14 +93,8 @@ $RECYCLE.BIN/
 ssl
 .idea
 nbproject
-public/uploads/*
-!public/uploads/.gitkeep
-public/nitroapi/uploads/*
-!public/nitroapi/uploads/.gitkeep
-# gatsby web client
-public/nitroweb
-# statistics JSON
-public/nitroapi/stat-json/*.json
+**/public/uploads/*
+!**/public/uploads/.gitkeep
 # build output directory
 build/
 dist/

@@ -7,8 +7,11 @@
     "dotenv": "~8.2.0",
     "mongoose": "~5.11.11"
   },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
   "scripts": {
-    "dev": "env NODE_ENV=development node src/index.js",
+    "dev": "cross-env NODE_ENV=development node src/index.js",
     "_build:docker": "docker build --build-arg volume_ro=/volume-ro --build-arg volume_rw=/volume-rw ./",
     "build:docker:pm2-dev": "yarn _build:docker --file dockerfile.pm2-dev --tag howto:pm2-dev",
     "build:docker:pm2-prod": "yarn _build:docker --file dockerfile.pm2 --tag howto:pm2",

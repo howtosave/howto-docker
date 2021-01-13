@@ -19,8 +19,8 @@ const mongoose = require("mongoose");
 //
 const PORT = process.env.PORT || 8080;
 const HOST = process.env.HOST || '127.0.0.1';
-const PUBLIC_DIR = process.env.PUBLIC_DIR || './tmp/public';
-const UPLOAD_DIR = process.env.UPLOAD_DIR || './tmp/upload';
+const PUBLIC_DIR = process.env.PUBLIC_DIR || './public';
+const UPLOAD_DIR = process.env.UPLOAD_DIR || './public/upload';
 
 const DB_HOST_PORT = process.env.DB_HOST_PORT || '127.0.0.1:27017';
 const DB_USER_PASS = process.env.DB_USER_PASS || 'user00:user000';
@@ -30,23 +30,35 @@ const DB_URL = `mongodb://${DB_USER_PASS}@${DB_HOST_PORT}`;
 //
 // database
 //
-mongoose.connect(DB_URL, { useUnifiedTopology: true, useNewUrlParser: true, dbName: DB_NAME });
-mongoose.connection.once("open", function() {
-  console.log(`>>> DB connected: ${DB_URL}`);
-});
+let dbConnected = false;
+const listModel = (() => {
+  try {
+    mongoose.connect(DB_URL, { 
+      useUnifiedTopology: true, useNewUrlParser: true, dbName: DB_NAME, connectTimeoutMS: 5000 
+    });
+    mongoose.connection.once("open", function() {
+      dbConnected = true;
+      console.log(`>>> DB connected: ${DB_URL}`);
+    });
 
-const listModel = mongoose.model("ListItem", new mongoose.Schema({
-  key: { type: String },
-  value: { type: String }
-}, {
-  collection: 'lists'
-}));
+    return mongoose.model("ListItem", new mongoose.Schema({
+      key: { type: String },
+      value: { type: String }
+    }, {
+      collection: 'lists'
+    }));
+  } catch (e) {
+    console.error(e.message);
+  }
+  return null;
+})();
 
 //
 // request handlers
 //
 const handlers = {
   '/*\/upload\/*/': (req, res) => {
+    const { url } = req;
     fs.writeFile(path.join(UPLOAD_DIR, 'uploaded.txt'), url, (err) => {
       if (err) {
         res.writeHead(500);
@@ -58,6 +70,10 @@ const handlers = {
     });
   },
   '/*\/lists\/*/': (req, res) => {
+    if (!dbConnected) {
+      res.writeHead(500);
+      return res.end('Server error');
+    }
     switch (req.method) {
       case 'GET':
         listModel.find({}, (err, result) => {
@@ -72,7 +88,7 @@ const handlers = {
         });
         break;
       default:
-        res.writeHead(404);
+        res.writeHead(400);
         res.end('Bad request');
         break;
     }
@@ -90,14 +106,14 @@ const server = http.createServer((req, res) => {
     res.writeHead(200);
     res.end("ok. found: " + fpath);
   } else {
-    for (const handler of handlers) {
+    for (const handler in handlers) {
       if (url.match(handler)) {
         return handlers[handler](req, res);
       }
     }
     // no handler found
     res.writeHead(404);
-    res.end("error. not found: " + fpath);
+    res.end("error. not found: " + url);
   }
 });
 
@@ -115,10 +131,13 @@ server.listen(PORT, HOST, () => {
 // handle ctrl+c
 //
 process.on('SIGINT', function() {
-    console.log("\nGracefully shutting down from SIGINT" );
-    // some other closing procedures go here
-    server.close((err) => {
-        if (err) console.error("!!!ERR", err), process.exit(1);
-        else process.exit(0);
+  console.log("\nGracefully shutting down from SIGINT" );
+  // some other closing procedures go here
+  server.close((err) => {
+    mongoose.connection.close(() => {
+      if (err) console.error("!!!ERR", err), process.exit(1);
+      else process.exit(0);
     });
+    dbConnected = false;
+  });
 });
