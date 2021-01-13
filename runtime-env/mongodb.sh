@@ -32,7 +32,7 @@ if [ "$_ENV" == "dev" ]; then
     # --detach
     _OPTS="--rm --detach"
   fi
-  docker run $_OPTS --name mongo-dev -p 17017:27017 --network "$NETWORK_NAME" \
+  docker run $_OPTS --name mongo-dev -p 27017:27017 --network "$NETWORK_NAME" \
     --mount type=bind,source="$ROOT_DIR/docker-volumes/var/mongo/data",target=/data/db \
     -e MONGO_INITDB_ROOT_USERNAME=myroot \
     -e MONGO_INITDB_ROOT_PASSWORD=myroot00 \
