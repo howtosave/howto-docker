@@ -23,7 +23,10 @@ if [ "$_ENV" == "dev" ]; then
       #--mount type=bind,source="$ROOT_DIR/docker-volumes/rw",target=/volume-rw \
 
   # run the following command on the terminal to copy files under host to the docker container
-  # scp -r peterk@10.0.0.1:~/howto-docker/nginx/nginx-volume/etc-nginx /volume/ro
+  # rm -rf /volume/ro/etc-nginx
+  # scp -r peterk@10.0.0.1:~/Workspace/carbon/howto-docker/nginx/nginx-volume/etc-nginx /volume/ro
+  # rm -rf /volume/ro/etc-mongo
+  # scp -r peterk@10.0.0.1:~/Workspace/carbon/howto-docker/mongodb/mongo-volume/etc-mongo /volume/ro
   # mkdir -p /volume/rw/var/log /volume/rw/var/run /volume/rw/var/mongo-data
 elif [ "$_ENV" == "prod" ]; then
   echo "NOOP for production"
