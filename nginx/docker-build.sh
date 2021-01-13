@@ -10,16 +10,19 @@ _SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT_DIR=$_SCRIPT_DIR
 _ENV=${1:-"dev"}
 
-echo
-echo ">>> Build image for $_ENV mode"
-echo
 if [ "$_ENV" == "dev" ]; then
+  echo
+  echo ">>> Build image for $_ENV mode"
+  echo
   docker build --file "$ROOT_DIR/dockerfile.dev" \
     --tag howto:nginx_dev \
     --build-arg etc_nginx=/etc/nginx \
     --build-arg var_nginx=/var/nginx \
     "$ROOT_DIR"
 elif [ "$_ENV" == "prod" ]; then
+  echo
+  echo ">>> Build image for $_ENV mode"
+  echo
   docker build --file "$ROOT_DIR/dockerfile" \
     --tag howto:nginx \
     --build-arg etc_nginx=/etc/nginx \

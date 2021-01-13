@@ -5,7 +5,7 @@ _usage() {
     echo '  <env>          build environment. *dev|prod'
     echo '  <run_params>   params for docker-run'
     echo '                 dev default: --rm -it -p 8080:80'
-    echo '                 prod default: --rm -it -p 8080:80'
+    echo '                 prod default: --rm --detach'
     echo
 }
 
@@ -23,8 +23,11 @@ _OPTS=${@}
 [ ! -d "$ROOT_DIR/app-volume/var/app/upload" ] && mkdir -p "$ROOT_DIR/app-volume/var/app/upload"
 
 if [ "$_ENV" == "dev" ]; then
-    # run with temp container
-    docker run --rm -it --name howto-pm2-dev \
+    if [ "$_OPTS" == "" ]; then
+        # run with temp container
+        _OPTS="--rm"
+    fi
+    docker run $_OPTS --name howto-pm2-dev \
         -e PORT=2337 --expose 2337 -p 2337:2337 \
         --mount type=bind,source="$ROOT_DIR/app-volume/app",target=/volume-ro,readonly \
         --mount type=bind,source="$ROOT_DIR/app-volume/var/app",target=/volume-rw \
@@ -32,7 +35,12 @@ if [ "$_ENV" == "dev" ]; then
         -e NODE_ENV=development \
         howto:pm2_dev
 elif [ "$_ENV" == "prod" ]; then
-    docker run --rm -it --name howto-pm2 \
+    if [ "$_OPTS" == "" ]; then
+        # --detach: Run container in background and print container ID
+        # --rm: run with temp container
+        _OPTS="--rm --detach"
+    fi
+    docker run $_OPTS --name howto-pm2 \
         -e PORT=2337 --expose 2337 -p 2337:2337 \
         --mount type=bind,source="$ROOT_DIR/app-volume/app",target=/volume-ro,readonly \
         --mount type=bind,source="$ROOT_DIR/app-volume/var/app",target=/volume-rw \

@@ -4,8 +4,8 @@ _usage() {
     echo 'Usage: ./docker-run.sh <env> <run_params>'
     echo '  <env>          build environment. *dev|prod'
     echo '  <run_params>   params for docker-run'
-    echo '                 dev default: --rm -it -p 8080:80'
-    echo '                 prod default: --rm -it -p 8080:80'
+    echo '                 dev default: --rm'
+    echo '                 prod default: --rm --detach'
     echo
 }
 
@@ -23,24 +23,26 @@ _OPTS=${@}
 
 if [ "$_ENV" == "dev" ]; then
     if [ "$_OPTS" == "" ]; then
-        _OPTS="--rm -p 8080:80"
+        # run with temp container
+        _OPTS="--rm"
     fi
-    # run with temp container
     docker run $_OPTS --name nginx-dev \
+        -p 8080:80 \
         --mount type=bind,source="$ROOT_DIR/nginx-volume/etc-nginx",target=/etc/nginx,readonly \
         --mount type=bind,source="$ROOT_DIR/nginx-volume/var/nginx",target=/var/nginx \
         howto:nginx_dev
 elif [ "$_ENV" == "prod" ]; then
     if [ "$_OPTS" == "" ]; then
         # --detach: Run container in background and print container ID
-        # -p: publish. Publish a container's port(s) to the host
-        _OPTS="--rm -p 8080:80 --detach"
+        # --rm: run with temp container
+        _OPTS="--rm --detach"
     fi
     # stop & remove the container
     # docker container stop nginx-prod
     # docker container rm nginx-prod
     # or
     docker run $_OPTS --name nginx-prod \
+        -p 8080:80 \
         --mount type=bind,source="$ROOT_DIR/nginx-volume/etc-nginx",target=/etc/nginx,readonly \
         --mount type=bind,source="$ROOT_DIR/nginx-volume/var/nginx",target=/var/nginx \
         howto:nginx
