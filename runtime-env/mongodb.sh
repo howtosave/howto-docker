@@ -13,13 +13,18 @@ _SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT_DIR=$_SCRIPT_DIR
 
 #
+# load config
+#
+source "$ROOT_DIR/_config.sh"
+
+#
 # arguments
 #
 _ENV=${1:-"dev"}
 shift 1
 _OPTS=${@}
 
-[ ! -d "$ROOT_DIR/docker-volume/var/mongo/data" ] && mkdir -p "$ROOT_DIR/docker-volume/var/mongo/data"
+[ ! -d "$ROOT_DIR/docker-volumes/var/mongo/data" ] && mkdir -p "$ROOT_DIR/docker-volumes/var/mongo/data"
 
 if [ "$_ENV" == "dev" ]; then
   if [ "$_OPTS" == "" ]; then
@@ -27,8 +32,8 @@ if [ "$_ENV" == "dev" ]; then
     # --detach
     _OPTS="--rm --detach"
   fi
-  docker run $_OPTS --name mongo-dev -p 17017:27017 \
-    --mount type=bind,source="$ROOT_DIR/docker-volume/var/mongo/data",target=/data/db \
+  docker run $_OPTS --name mongo-dev -p 17017:27017 --network "$NETWORK_NAME" \
+    --mount type=bind,source="$ROOT_DIR/docker-volumes/var/mongo/data",target=/data/db \
     -e MONGO_INITDB_ROOT_USERNAME=myroot \
     -e MONGO_INITDB_ROOT_PASSWORD=myroot00 \
     mongo:4.2.11-bionic
