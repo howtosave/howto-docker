@@ -104,3 +104,17 @@ docker run -it --rm \
     mongo-express
 
 ```
+
+## Misc.
+
+### install mongo cli on Mac
+
+- using homebrew (See https://docs.mongodb.com/mongocli/stable/install/)
+
+```sh
+# install
+brew tap mongodb/brew
+brew install mongodb-community-shell
+# verify
+mongo help
+```
