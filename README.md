@@ -1,24 +1,8 @@
-# howto-docker
+# Howto Docker
 
-## [Install on Ubuntu 18.04](https://docs.docker.com/engine/install/ubuntu/)
-
-```sh
-# prerequisite
-sudo apt update
-# install
-sudo apt install docker.io docker-compose
-# conf
-# run as a user
-sudo chmod 666 /var/run/docker.sock
-# run
-sudo systemctl start docker
-# check
-sudo systemctl status docker
-docker --version
-```
 ## MongoDB
 
-- See [doc](./mongodb/readme.md)
+- See [mongodb/README](./mongodb/README.md)
 
 ## Nginx
 
@@ -55,36 +39,7 @@ curl -s http://localhost:8080 | grep 'ok'
 
 ## NodeJS
 
-### Node mode
-
-```sh
-# build
-yarn build:docker:node
-
-# run with temp container
-yarn docker:node
-# or NODE_ENV=production yarn docker:node
-
-# check
-curl -s http://localhost:2337 | grep 'ok'
-curl -s http://localhost:2337/upload/test | grep 'ok'
-```
-
-### PM2 mode
-
-```sh
-# build
-yarn build:docker:pm2
-# or yarn build:docker:pm2-prod
-
-# run with temp container
-yarn docker:pm2-dev
-# or yarn docker:pm2-prod
-
-# check
-curl -s http://localhost:2337 | grep 'ok'
-curl -s http://localhost:2337/upload/test | grep 'ok'
-```
+- See [nginx/README](./nginx/README.md)
 
 ## Network
 

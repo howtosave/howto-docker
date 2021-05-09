@@ -3,6 +3,7 @@
 ## [Docker Official Images](https://hub.docker.com/_/mongo)
 
 - 4.0.10-xenial (#latest, #stable)
+- 3.6.23-xenial: 3.x for xenial(16.04)
 
 ## start mongo server instance
 
