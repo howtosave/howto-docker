@@ -3,7 +3,8 @@
 #
 
 # See https://hub.docker.com/_/mongo
-FROM mongo:4.4.3-bionic
+# FROM mongo:4.4.3-bionic
+FROM mongo:3.6.23-xenial
 
 ARG etc_mongo=/etc/mongo
 ARG var_mongo=/var/mongo

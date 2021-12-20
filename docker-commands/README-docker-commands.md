@@ -22,6 +22,8 @@ $ docker inspect <container_name>
 ## container
 
 ```sh
+# stop container
+$ docker stop <container_name>
 # remove container
 $ docker rm -f <container_name>
 # run container

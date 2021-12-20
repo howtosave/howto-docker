@@ -3,6 +3,7 @@
 ## [Docker Official Images](https://hub.docker.com/_/mongo)
 
 - 4.0.10-xenial (#latest, #stable)
+- 3.6.23-xenial: 3.x for xenial(16.04)
 
 ## start mongo server instance
 
@@ -102,4 +103,18 @@ docker run -it --rm \
     -e ME_CONFIG_BASICAUTH_PASSWORD="test0" \
     mongo-express
 
+```
+
+## Misc.
+
+### install mongo cli on Mac
+
+- using homebrew (See https://docs.mongodb.com/mongocli/stable/install/)
+
+```sh
+# install
+brew tap mongodb/brew
+brew install mongodb-community-shell
+# verify
+mongo help
 ```
