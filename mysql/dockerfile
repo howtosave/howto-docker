@@ -1,0 +1,24 @@
+#
+# MySQL Production Mode
+#
+
+# See https://hub.docker.com/r/mysql/mysql-server
+FROM mysql/mysql-server:8.0
+
+#ARG etc_mysql=/etc/mysql
+ARG var_mysql=/var/mysql
+
+#RUN echo "ARGs: etc_mysql: ${etc_mysql}, var_mysql: ${var_mysql}"
+
+ENV MYSQL_ROOT_PASSWORD "myroot00"
+# the name of a database to be created on image startup.
+ENV MYSQL_DATABASE "my_first_db"
+
+#ENV MYSQL_DIR "${etc_mysql}"
+ENV MYSQL_DATA_DIR "${var_mysql}"
+
+# volumes to be bound at runtime
+#VOLUME [ "${etc_mysql}", "${var_mysql}" ]
+VOLUME [ "${var_mysql}" ]
+
+ENTRYPOINT mysqld
