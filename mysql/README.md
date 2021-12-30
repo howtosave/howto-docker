@@ -1,10 +1,10 @@
 # Docker for MySQL
 
-## Quick start with admin
+## TL;DR
 
 ```sh
 # run mysql and adminer
-docker-compose -f stack.yml up
+docker-compose -f stack-mysql-and-adminer.yml up
 # browse http:localst:8080
 ```
 
@@ -12,16 +12,16 @@ docker-compose -f stack.yml up
 
 ```sh
 # run docker
-docker run --rm --name mysql-8.0 -e MYSQL_ROOT_PASSWORD=root000 -d mysql/mysql-server:8.0
+docker run --rm --name mysql-dev -e MYSQL_ROOT_PASSWORD=root000 -d mysql/mysql-server:8.0
 # or
-docker run --rm --name mysql-8.0 -e MYSQL_ROOT_PASSWORD=root000 -d mysql:8.0
+docker run --rm --name mysql-dev -e MYSQL_ROOT_PASSWORD=root000 -d mysql:8.0
 # or on M1 mac
-docker run --rm --platform linux/x86_64 --name mysql-8.0 -e MYSQL_ROOT_PASSWORD=root000 -d mysql:8.0
+docker run --rm --platform linux/x86_64 --name mysql-dev -e MYSQL_ROOT_PASSWORD=root000 -d mysql:8.0
 
 # run mysql shell
-docker exec -it mysql-8.0 mysql -uroot -proot000
+docker exec -it mysql-dev mysql -uroot -proot000
 # run bash
-docker exec -it mysql-8.0 bash
+docker exec -it mysql-dev bash
 ```
 
 ## Own data directory
@@ -60,7 +60,7 @@ select user();
 select current_user();
 ```
 
-## Misc.
+## Misc
 
 ### [Official Images](https://hub.docker.com/r/mysql/mysql-server)
 

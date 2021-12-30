@@ -17,7 +17,7 @@ _usage() {
     echo '    $ docker exec -it mysql-dev bash'
     echo
     echo ' to verify a mysql connection'
-    echo '    $ mysql ... --verbose mongodb://myroot:myroot00@localhost:3306/admin'
+    echo '    $ mysql -uroot -proot000 -h localhost'
 }
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
@@ -30,10 +30,11 @@ _OPTS="--rm ${@}"
 # check local directories
 [ ! -d "$ROOT_DIR/mysql-volume/var/mysql/data" ] && mkdir -p "$ROOT_DIR/mysql-volume/var/mysql/data"
 
-docker run $_OPTS --name "$CONTAINRER_NAME" -p "$LOCAL_BIND_PORT":3306 \
-    -v $ROOT_DIR/mysql-volume/var/mysql/data:/var/lib/mysql \
-    -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
-    -d mysql:8.0
+docker run $_OPTS --name "$CONTAINRER_NAME" --publish "$LOCAL_BIND_PORT":3306 \
+    --volume $ROOT_DIR/mysql-volume/var/mysql/data:/var/lib/mysql \
+    --env MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
+    --detach \
+    mysql:8.0
 
 #
 # verify

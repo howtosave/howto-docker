@@ -1,15 +1,26 @@
 # Use root/root000 as user/password credentials
-version: '3.9'
+# See https://hub.docker.com/_/mysql
+# See https://github.com/docker-library/mysql
+
+# Adminer
+# See https://hub.docker.com/_/adminer?tab=tags
+# See https://github.com/TimWolla/docker-adminer
+
+version: '3.3'
 
 services:
 
   db:
     container_name: mysql-dev
     image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
+    command: --authentication-policy='caching_sha2_password'
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root000
+    ports:
+      # host:container
+      - 3306:3306   # /usr/sbin/mysqld
+      - 33060:33060 # X Plugin
     volumes:
       # relative path to the Compose file
       - ./mysql-volume/var/mysql/data:/var/lib/mysql
