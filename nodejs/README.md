@@ -1,6 +1,6 @@
 # Docker for NodeJS
 
-### Single instance mode
+## Single instance mode
 
 ```sh
 # build
@@ -15,7 +15,7 @@ curl -s http://localhost:2337 | grep 'ok'
 curl -s http://localhost:2337/upload/test | grep 'ok'
 ```
 
-### Multiple instances mode using PM2
+## Multiple instances mode using PM2
 
 ```sh
 # build

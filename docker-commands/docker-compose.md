@@ -5,8 +5,8 @@
 ```sh
 # Create and start containers
 $ docker-compose -f stack.yml up
-# OR run in background
-$ docker-compose -f stack.yml -d up
+# OR run in background. '-d' after 'up'
+$ docker-compose -f stack.yml up -d
 
 # stop and remove containers, networks, images, and volumes
 $ docker-compose -f stack.yml down
@@ -22,6 +22,8 @@ docker-compose -f stack.yml stop
 ```
 
 ## comand-line help
+
+### `docker-compose --help`
 
 ```txt
 Usage:
@@ -74,4 +76,34 @@ Commands:
   unpause            Unpause services
   up                 Create and start containers
   version            Show the Docker-Compose version information
+```
+
+### `docker-compose up --help`
+
+```txt
+Usage:  docker compose up [SERVICE...]
+
+Create and start containers
+
+Options:
+      --abort-on-container-exit   Stops all containers if any container was stopped. Incompatible with -d
+      --always-recreate-deps      Recreate dependent containers. Incompatible with --no-recreate.
+      --attach stringArray        Attach to service output.
+      --attach-dependencies       Attach to dependent containers.
+      --build                     Build images before starting containers.
+  -d, --detach                    Detached mode: Run containers in the background
+      --exit-code-from string     Return the exit code of the selected service container. Implies --abort-on-container-exit
+      --force-recreate            Recreate containers even if their configuration and image haven't changed.
+      --no-build                  Don't build an image, even if it's missing.
+      --no-color                  Produce monochrome output.
+      --no-deps                   Don't start linked services.
+      --no-log-prefix             Don't print prefix in logs.
+      --no-recreate               If containers already exist, don't recreate them. Incompatible with --force-recreate.
+      --no-start                  Don't start the services after creating them.
+      --quiet-pull                Pull without printing progress information.
+      --remove-orphans            Remove containers for services not defined in the Compose file.
+  -V, --renew-anon-volumes        Recreate anonymous volumes instead of retrieving data from the previous containers.
+      --scale scale               Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
+  -t, --timeout int               Use this timeout in seconds for container shutdown when attached or when containers are already running. (default 10)
+      --wait                      Wait for services to be running|healthy. Implies detached mode.
 ```
