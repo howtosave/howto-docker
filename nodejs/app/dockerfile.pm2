@@ -5,7 +5,7 @@
 #
 
 # See https://hub.docker.com/r/keymetrics/pm2
-FROM keymetrics/pm2:12-alpine
+FROM keymetrics/pm2:16-alpine
 
 # pm2 installation
 #RUN pm2 install pm2-server-monit
