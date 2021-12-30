@@ -27,7 +27,6 @@ elif [ "$_ENV" == "prod" ]; then
     --tag howto:nginx \
     --build-arg etc_nginx=/etc/nginx \
     --build-arg var_nginx=/var/nginx \
-    --build-arg volume_rw=/volume-rw \
     "$ROOT_DIR"
 else
   _usage

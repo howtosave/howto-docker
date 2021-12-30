@@ -1,0 +1,36 @@
+# See https://hub.docker.com/_/nginx
+
+version: "3.9"
+
+services:
+
+  nginx:
+    container_name: nginx-dev
+    image: nginx:1.21-alpine
+    command: []
+    restart: always
+    environment: []
+    ports:
+      - 8080:80 # nginxd
+    volumes:
+      # html files
+      - ./nginx-volume/var/nginx/html:/usr/share/nginx/html:ro
+      # config files
+      - ./nginx-volume/etc/nginx:/etc/nginx
+      # log files
+      - ./nginx-volume/var/nginx/log:/var/log/nginx
+      # cache and run-time files
+      - ./nginx-volume/var/nginx/cache:/var/cache/nginx
+      - ./nginx-volume/var/nginx/run:/var/run
+    networks:
+      frontend:
+        ipv4_address: 10.1.1.2 # static ip
+  
+networks:
+
+  frontend:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.1.0/24 # mask: 255.255.255.0
+          gateway: 10.1.1.1

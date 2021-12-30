@@ -6,7 +6,7 @@
 # See https://hub.docker.com/_/adminer?tab=tags
 # See https://github.com/TimWolla/docker-adminer
 
-version: '3.3'
+version: '3.9'
 
 services:
 
@@ -24,6 +24,9 @@ services:
     volumes:
       # relative path to the Compose file
       - ./mysql-volume/var/mysql/data:/var/lib/mysql
+    networks:
+      default:
+        ipv4_address: 10.0.0.2 # static ip
 
   adminer:
     container_name: mysql-admin
@@ -31,3 +34,12 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+networks:
+
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24" # mask: 255.255.255.0
+          gateway: 10.0.0.1

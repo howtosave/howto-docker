@@ -4,7 +4,7 @@
 
 ```sh
 # run mysql and adminer
-docker-compose -f stack-mysql-and-adminer.yml up
+docker-compose -p mysql -f stack-mysql-and-adminer.yml up
 # browse http:localst:8080
 ```
 
