@@ -14,14 +14,14 @@ services:
       - 8080:80 # nginxd
     volumes:
       # html files
-      - ./nginx-volume/var/nginx/html:/usr/share/nginx/html:ro
+      - ./volume/var/nginx/html:/usr/share/nginx/html:ro
       # config files
-      - ./nginx-volume/etc/nginx:/etc/nginx
+      - ./volume/etc/nginx:/etc/nginx
       # log files
-      - ./nginx-volume/var/nginx/log:/var/log/nginx
+      - ./volume/var/nginx/log:/var/log/nginx
       # cache and run-time files
-      - ./nginx-volume/var/nginx/cache:/var/cache/nginx
-      - ./nginx-volume/var/nginx/run:/var/run
+      - ./volume/var/nginx/cache:/var/cache/nginx
+      - ./volume/var/nginx/run:/var/run
     networks:
       frontend:
         ipv4_address: 10.1.1.2 # static ip
