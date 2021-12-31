@@ -107,3 +107,18 @@ Options:
   -t, --timeout int               Use this timeout in seconds for container shutdown when attached or when containers are already running. (default 10)
       --wait                      Wait for services to be running|healthy. Implies detached mode.
 ```
+
+### `docker-compose build --help`
+
+```txt
+Usage:  docker compose build [SERVICE...]
+
+Build or rebuild services
+
+Options:
+      --build-arg stringArray   Set build-time variables for services.
+      --no-cache                Do not use cache when building the image
+      --progress string         Set type of progress output (auto, tty, plain, quiet) (default "auto")
+      --pull                    Always attempt to pull a newer version of the image.
+  -q, --quiet                   Don't print anything to STDOUT
+```
