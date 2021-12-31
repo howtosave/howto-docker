@@ -33,6 +33,7 @@ services:
     volumes:
       # relative path to the Compose file
       - ./SVC_STORAGE/var/mysql/data:/var/lib/mysql
+      - ./SVC_STORAGE/var/mysql/initdb.d:/docker-entrypoint-initdb.d
     networks:
       default:
         ipv4_address: 10.0.0.21 # static ip
@@ -51,22 +52,28 @@ services:
 
   SVC_HTTPAPI:
     container_name: SVC_HTTPAPI
-    image: "howto:httpapi"
+    image: "howtodocker:nestjs"
+    environment:
+      PORT: 1337
     ports:
       - 1337:1337
+    volumes:
+      # relative path to the Compose file
+      - ./SVC_STORAGE/var/nestjs:/volume-ro
+      - ./SVC_STORAGE/var/nestjs:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.11 # static ip
 
-  SVC_WEBCLIENT:
-    container_name: SVC_WEBCLIENT
-    image: "howto:webclient"
-    ports:
-      - 3000:3000
-    networks:
-      default:
-        ipv4_address: 10.0.0.31 # static ip
-      
+#  SVC_WEBCLIENT:
+#    container_name: SVC_WEBCLIENT
+#    image: "howtodocker:nextjs"
+#    ports:
+#      - 3000:3000
+#    networks:
+#      default:
+#        ipv4_address: 10.0.0.31 # static ip
+
 networks:
 
   default: # internal

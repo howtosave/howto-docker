@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "docker:build": "docker-compose -p web-service -f web-service.stack.yml build",
-    "docker:run": "docker-compose -p web-service -f web-service.stack.yml up -d",
+    "docker:build": "echo TODO",
+    "_docker:copy": "mkdir -p ./SVC_STORAGE/var/mysql/initdb.d && cp ./SVC_HTTPAPI/nestjs/initdb.d/* ./SVC_STORAGE/var/mysql/initdb.d",
+    "docker:run": "yarn _docker:copy && docker-compose -p web-service -f web-service.stack.yml up -d",
     "docker:kill": "docker-compose -p web-service -f web-service.stack.yml down"
   },
   "license": "MIT"
