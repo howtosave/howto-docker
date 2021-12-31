@@ -1,0 +1,10 @@
+{
+  "name": "SVC_PROXY",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "docker:build": "docker-compose -f nginx.stack.yml build",
+    "docker:up": "docker-compose -f nginx.stack.yml up -d",
+    "docker:down": "docker-compose -f nginx.stack.yml down"
+  }
+}
