@@ -1,0 +1,78 @@
+# 
+# + SVC_DB with MySQL
+#   - root/root000 as user/password credentials
+#   - See https://hub.docker.com/_/mysql
+#   - See https://github.com/docker-library/mysql
+# 
+# + SVC_DB_adminer
+#   - exported port: 8080
+#   - See https://hub.docker.com/_/adminer?tab=tags
+#   - See https://github.com/TimWolla/docker-adminer
+#
+# + SVC_HTTPAPI
+#
+# + SVC_WEBCLIENT
+#
+#
+
+version: '3.9'
+
+services:
+
+  SVC_DB:
+    container_name: SVC_DB
+    image: mysql:8.0
+    command: --authentication-policy='caching_sha2_password'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root000
+    ports:
+      # host:container
+      - 3306:3306   # /usr/sbin/mysqld
+      - 33060:33060 # X Plugin
+    volumes:
+      # relative path to the Compose file
+      - ../SVC_STORAGE/var/mysql/data:/var/lib/mysql
+      - ../SVC_STORAGE/var/mysql/initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      default:
+        ipv4_address: 10.0.0.21 # static ip
+
+  SVC_DB_adminer:
+    container_name: SVC_DB_adminer
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: SVC_DB
+    ports:
+      - 8080:8080
+    networks:
+      default:
+        ipv4_address: 10.0.0.29 # static ip
+
+  SVC_HTTPAPI_nestjs:
+    build:
+      context: .
+      dockerfile: dockerfile.pm2
+    container_name: SVC_HTTPAPI_nestjs
+    image: "howtodocker:nestjs"
+    environment:
+      PORT: 1337
+    ports:
+      - 1337:1337
+    volumes:
+      # relative path to the Compose file
+      - ../SVC_STORAGE/var/nestjs:/volume-ro
+      - ../SVC_STORAGE/var/nestjs:/volume-rw
+    networks:
+      default:
+        ipv4_address: 10.0.0.11 # static ip
+
+networks:
+
+  default: # internal
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24 # mask: 255.255.255.0
+          gateway: 10.0.0.1

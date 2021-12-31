@@ -1,0 +1,12 @@
+{
+  "name": "web-service-root",
+  "private": "true",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "docker:build": "docker-compose -p web-service -f web-service.stack.yml build",
+    "docker:run": "docker-compose -p web-service -f web-service.stack.yml up -d",
+    "docker:kill": "docker-compose -p web-service -f web-service.stack.yml down"
+  },
+  "license": "MIT"
+}

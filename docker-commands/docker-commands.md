@@ -1,5 +1,54 @@
 # docker commands
 
+## run & kill
+
+```sh
+docker run --name <container_name> <service_name>:<tag>
+docker kill <container_name>
+```
+
+## start & stop
+
+```sh
+docker start <container_name>
+docker stop <container_name>
+```
+
+## list
+
+```sh
+# docker container
+docker ps
+# docker images
+docker images
+# volume
+docker volume ls
+# network
+docker network ls
+# instance inspect
+$ docker inspect <container_name>
+```
+
+## container
+
+```sh
+# list all
+docker ps -a
+# stop container
+docker stop <container_name>
+# remove container
+docker rm -f <container_name>
+# run container in background('-d`)
+docker run -d --name <container_name> <service_name>:<tag>
+```
+
+## volume
+
+```sh
+# create
+$ docker volume create --name=mongo-data
+```
+
 ## commands
 
 ```txt
@@ -46,55 +95,9 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 ```
 
-## run & kill
-
-```sh
-docker run --name <container_name> <service_name>:<tag>
-docker kill <container_name>
-```
-
-## start & stop
-
-```sh
-docker start <container_name>
-docker stop <container_name>
-```
-
-## status
-
-```sh
-# docker status
-$ docker ps
-# volume
-$ docker volume ls
-# network
-$ docker network ls
-# instance inspect
-$ docker inspect <container_name>
-```
-
-## container
-
-```sh
-# stop container
-$ docker stop <container_name>
-# remove container
-$ docker rm -f <container_name>
-# run container
-$ docker run -d --name <container_name> <service_name>:<tag>
-
-```
-
-## volume
-
-```sh
-# create
-$ docker volume create --name=mongo-data
-```
-
 ## comand-line help
 
-- `docker --help`
+### `docker --help`
 
 ```txt
 Usage:  docker [OPTIONS] COMMAND
@@ -181,4 +184,79 @@ Commands:
 Run 'docker COMMAND --help' for more information on a command.
 
 To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+```
+
+### `docker conatiner --help`
+
+```txt
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+```
+
+### `docker build --help`
+
+```txt
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --cgroup-parent string    Optional parent cgroup for the container
+      --compress                Compress the build context using gzip
+      --cpu-period int          Limit the CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int           Limit the CPU CFS (Completely Fair Scheduler) quota
+  -c, --cpu-shares int          CPU shares (relative weight)
+      --cpuset-cpus string      CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string      MEMs in which to allow execution (0-3, 0,1)
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is 'PATH/Dockerfile')
+      --force-rm                Always remove intermediate containers
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+  -m, --memory bytes            Memory limit
+      --memory-swap bytes       Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --network string          Set the networking mode for the RUN instructions during build (default "default")
+      --no-cache                Do not use cache when building the image
+      --pull                    Always attempt to pull a newer version of the image
+  -q, --quiet                   Suppress the build output and print image ID on success
+      --rm                      Remove intermediate containers after a successful build (default true)
+      --security-opt strings    Security options
+      --shm-size bytes          Size of /dev/shm
+  -t, --tag list                Name and optionally a tag in the 'name:tag' format
+      --target string           Set the target build stage to build.
+      --ulimit ulimit           Ulimit options (default [])
 ```
