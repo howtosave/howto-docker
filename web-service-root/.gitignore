@@ -59,7 +59,6 @@ $RECYCLE.BIN/
 *.rar
 *.tar
 *.zip
-*.com
 *.class
 *.dll
 *.exe

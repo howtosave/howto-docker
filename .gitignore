@@ -11,6 +11,4 @@ temp-*
 .*.local
 .*.local.*
 
-**/mongo/data
-
 .DS_Store
