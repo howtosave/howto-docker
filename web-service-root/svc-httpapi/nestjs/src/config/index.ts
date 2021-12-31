@@ -2,6 +2,7 @@
 export const app = {
   host: process.env.HOST || "host",
   port: process.env.PORT || 1337,
+  prefixUrl: process.env.PREFIX_URL || "",
 };
 
 export const auth = {

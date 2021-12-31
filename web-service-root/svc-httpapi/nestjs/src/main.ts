@@ -14,6 +14,7 @@ async function bootstrap() {
     new FastifyAdapter(), {
       logger: new Logger(), //['log', 'error', 'warn', 'debug', 'verbose'],
     });
+  if (appConfig.prefixUrl) app.setGlobalPrefix(appConfig.prefixUrl);
   await app.listen(appConfig.port, appConfig.host);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
