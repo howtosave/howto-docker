@@ -65,14 +65,22 @@ services:
       default:
         ipv4_address: 10.0.0.11 # static ip
 
-#  SVC_WEBCLIENT:
-#    container_name: SVC_WEBCLIENT
-#    image: "howtodocker:nextjs"
-#    ports:
-#      - 3000:3000
-#    networks:
-#      default:
-#        ipv4_address: 10.0.0.31 # static ip
+  SVC_WEBCLIENT:
+    container_name: SVC_WEBCLIENT
+    image: howtodocker:nextjs
+    environment:
+      PORT: 3000
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    volumes:
+      # relative path to the Compose file
+      - ./svc-storage/var/nextjs:/volume-ro
+      - ./svc-storage/var/nextjs:/volume-rw
+    networks:
+      default:
+        ipv4_address: 10.0.0.31 # static ip
 
   SVC_PROXY:
     container_name: SVC_PROXY
