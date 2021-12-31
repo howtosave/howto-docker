@@ -26,8 +26,8 @@
     "echo": "echo $PWD",
     "docker:build": "yarn build && docker-compose -f ./stack.yml build --progress=plain",
     "_docker:copy": "mkdir -p ../svc-storage/var/mysql/initdb.d && cp ./initdb.d/* ../svc-storage/var/mysql/initdb.d",
-    "docker:run": "yarn _docker:copy && docker-compose -f ./stack.yml up -d",
-    "docker:kill": "docker-compose -f ./stack.yml down"
+    "docker:up": "yarn _docker:copy && docker-compose -f ./stack.yml up -d",
+    "docker:down": "docker-compose -f ./stack.yml down"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

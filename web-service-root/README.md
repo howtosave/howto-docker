@@ -43,6 +43,7 @@
 
 - subnet: 10.0.0.0/24
 - gateway: 10.0.0.1
+- SVC_PROXY: 10.0.0.2
 - SVC_HTTPAPI: 10.0.0.1X
 - SVC_DB: 10.0.0.2X
 - SVC_WEBCLIENT: 10.0.0.31
@@ -51,3 +52,4 @@
 
 - subnet: 10.1.1.0/24
 - gateway: 10.1.1.1
+- SVC_PROXY: 10.1.1.2

@@ -74,6 +74,32 @@ services:
 #      default:
 #        ipv4_address: 10.0.0.31 # static ip
 
+  SVC_PROXY:
+    container_name: SVC_PROXY
+    image: nginx:1.21-alpine
+    command: []
+    restart: always
+    environment: []
+    ports:
+      # host:container
+      - 8000:80
+    volumes:
+      # relative path to the Compose file
+      # html files
+      - ../svc-storage/var/nginx/html:/usr/share/nginx/html:ro
+      # config files
+      - ../svc-storage/etc/nginx:/etc/nginx
+      # log files
+      - ../svc-storage/var/nginx/log:/var/log/nginx
+      # cache and run-time files
+      - ../svc-storage/var/nginx/cache:/var/cache/nginx
+      - ../svc-storage/var/nginx/run:/var/run
+    networks:
+      default:
+        ipv4_address: 10.0.0.2 # static ip
+      external:
+        ipv4_address: 10.1.1.2 # static ip
+
 networks:
 
   default: # internal
