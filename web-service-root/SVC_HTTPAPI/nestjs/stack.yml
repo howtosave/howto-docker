@@ -11,9 +11,6 @@
 #
 # + SVC_HTTPAPI
 #
-# + SVC_WEBCLIENT
-#
-#
 
 version: '3.9'
 
