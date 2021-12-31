@@ -25,7 +25,7 @@
     "gen:crud": "nest generate resource",
     "echo": "echo $PWD",
     "docker:build": "yarn build && docker-compose -f ./stack.yml build --progress=plain",
-    "_docker:copy": "mkdir -p ../SVC_STORAGE/var/mysql/initdb.d && cp ./initdb.d/* ../SVC_STORAGE/var/mysql/initdb.d",
+    "_docker:copy": "mkdir -p ../svc-storage/var/mysql/initdb.d && cp ./initdb.d/* ../svc-storage/var/mysql/initdb.d",
     "docker:run": "yarn _docker:copy && docker-compose -f ./stack.yml up -d",
     "docker:kill": "docker-compose -f ./stack.yml down"
   },

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "docker:build": "docker-compose -p mysql -f mysql.stack.yml build",
-    "_docker:copy": "cp ./initdb.d/* ../SVC_STORAGE/var/mysql/initdb.d",
+    "_docker:copy": "cp ./initdb.d/* ../svc-storage/var/mysql/initdb.d",
     "docker:run": "yarn _docker:copy && docker-compose -p mysql -f mysql.stack.yml up -d",
     "docker:kill": "docker-compose -p mysql -f mysql.stack.yml down"
   }

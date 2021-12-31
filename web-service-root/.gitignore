@@ -1,2 +1,130 @@
+############################
+# General Ignore Files
+############################
+tmp
+tmp-*
+temp
+temp-*
+.tmp
+*.log
+*#
+.*.local
+.*.local.*
 
-SVC_STORAGE/var/**
+############################
+# OS X
+############################
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+
+
+############################
+# Linux
+############################
+
+*~
+
+
+############################
+# Windows
+############################
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+
+############################
+# Packages
+############################
+
+*.7z
+*.csv
+*.dat
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.seed
+*.so
+*.swo
+*.swp
+*.swn
+*.swm
+*.out
+*.pid
+
+
+############################
+# Logs and databases
+############################
+
+.tmp
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+
+############################
+# Misc.
+############################
+
+*#
+ssl
+.idea
+nbproject
+**/public/uploads/*
+!**/public/uploads/.gitkeep
+# build output directory
+build/
+dist/
+# local env files
+.env
+.env.local
+.env.*.local
+
+############################
+# Node.js
+############################
+
+lib-cov
+lcov.info
+pids
+logs
+uploads
+results
+node_modules
+.node_history
+
+
+############################
+# Tests
+############################
+
+testApp
+coverage
+
+#
+# Misc.
+#
+svc-storage/var/**
