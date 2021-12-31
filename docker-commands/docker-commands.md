@@ -1,5 +1,54 @@
 # docker commands
 
+## run & kill
+
+```sh
+docker run --name <container_name> <service_name>:<tag>
+docker kill <container_name>
+```
+
+## start & stop
+
+```sh
+docker start <container_name>
+docker stop <container_name>
+```
+
+## list
+
+```sh
+# docker container
+docker ps
+# docker images
+docker images
+# volume
+docker volume ls
+# network
+docker network ls
+# instance inspect
+$ docker inspect <container_name>
+```
+
+## container
+
+```sh
+# list all
+docker ps -a
+# stop container
+docker stop <container_name>
+# remove container
+docker rm -f <container_name>
+# run container in background('-d`)
+docker run -d --name <container_name> <service_name>:<tag>
+```
+
+## volume
+
+```sh
+# create
+$ docker volume create --name=mongo-data
+```
+
 ## commands
 
 ```txt
@@ -44,52 +93,6 @@ Commands:
   update      Update configuration of one or more containers
   version     Show the Docker version information
   wait        Block until one or more containers stop, then print their exit codes
-```
-
-## run & kill
-
-```sh
-docker run --name <container_name> <service_name>:<tag>
-docker kill <container_name>
-```
-
-## start & stop
-
-```sh
-docker start <container_name>
-docker stop <container_name>
-```
-
-## status
-
-```sh
-# docker status
-$ docker ps
-# volume
-$ docker volume ls
-# network
-$ docker network ls
-# instance inspect
-$ docker inspect <container_name>
-```
-
-## container
-
-```sh
-# stop container
-$ docker stop <container_name>
-# remove container
-$ docker rm -f <container_name>
-# run container
-$ docker run -d --name <container_name> <service_name>:<tag>
-
-```
-
-## volume
-
-```sh
-# create
-$ docker volume create --name=mongo-data
 ```
 
 ## comand-line help
@@ -181,4 +184,41 @@ Commands:
 Run 'docker COMMAND --help' for more information on a command.
 
 To get more help with docker, check out our guides at https://docs.docker.com/go/guides/
+```
+
+- `docker conatiner --help`
+
+```txt
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
 ```
