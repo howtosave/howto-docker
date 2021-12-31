@@ -1,0 +1,63 @@
+#
+# PM2 Mode
+#
+# See https://docs.docker.com/engine/reference/builder/
+#
+
+# See https://hub.docker.com/_/node
+FROM node:14.18-alpine
+
+# Install pm2
+RUN npm install pm2 -g
+
+# pm2 installation
+#RUN pm2 install pm2-server-monit
+
+#
+# directories and volumes
+#
+
+# read only
+ENV PUBLIC_DIR "/volume-ro/public"
+
+# read-write
+ENV UPLOAD_DIR "/volume-rw/upload"
+ENV LOG_DIR "/volume-rw/log/pm2"
+
+# volumes to be bound at runtime
+VOLUME [ "/volume-ro", "/volume-rw" ]
+
+#
+# .env
+#
+
+# NOT 127.0.0.1 but 0.0.0.0
+ENV HOST '0.0.0.0'
+ENV PORT 1337
+
+# database
+ENV MYSQL_HOST 10.0.0.21
+ENV MYSQL_PORT 3306
+ENV MYSQL_DBNAME howtonest
+ENV MYSQL_USER root
+ENV MYSQL_PASSWORD root000
+
+#
+# copy and install
+#
+
+# Create and goto app directory
+WORKDIR /src/app
+
+# Bundle app source
+COPY . .
+RUN yarn install --frozen-lockfile
+RUN ls -al
+
+# misc
+ENV SECRET_KEY "at-docker-file-pm2"
+
+#
+# run
+# use *shell form* for variable substitution
+ENTRYPOINT pm2-runtime docker-pm2.config.json --env ${NODE_ENV}

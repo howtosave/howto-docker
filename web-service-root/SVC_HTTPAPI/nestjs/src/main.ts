@@ -6,7 +6,7 @@ import {
 import { AppModule } from './app.module';
 import { Logger } from "./libs/Logger";
 
-import { app as appConfig } from './config';
+import { app as appConfig, print as printConfig } from './config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -14,7 +14,8 @@ async function bootstrap() {
     new FastifyAdapter(), {
       logger: new Logger(), //['log', 'error', 'warn', 'debug', 'verbose'],
     });
-  await app.listen(appConfig.port);
+  await app.listen(appConfig.port, appConfig.host);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
+printConfig();
 bootstrap();

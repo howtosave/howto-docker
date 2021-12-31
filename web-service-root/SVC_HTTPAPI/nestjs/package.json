@@ -1,5 +1,5 @@
 {
-  "name": "nest-app",
+  "name": "nestjs-app",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -22,7 +22,12 @@
     "gen:module": "nest generate module",
     "gen:service": "nest generate service",
     "gen:controller": "nest generate controller",
-    "gen:crud": "nest generate resource"
+    "gen:crud": "nest generate resource",
+    "echo": "echo $PWD",
+    "docker:build": "yarn build && docker-compose -f ./stack.yml build --progress=plain",
+    "_docker:copy": "cp ./initdb.d/* ../SVC_STORAGE/var/mysql/initdb.d",
+    "docker:run": "yarn _docker:copy && docker-compose -f ./stack.yml up",
+    "docker:kill": "docker-compose -f ./stack.yml down"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
