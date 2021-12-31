@@ -1,18 +1,10 @@
 'use-strict';
 
-//
-// load .env
-//
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-require('dotenv').config({
-  path: require('fs').existsSync(`.env.${process.env.NODE_ENV}.local`)
-    ? `.env.${process.env.NODE_ENV}.local` : `.env.${process.env.NODE_ENV}`,
-});
+require('dotenv').config()
 
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const mongoose = require("mongoose");
 
 //
 // Constants
@@ -22,36 +14,10 @@ const HOST = process.env.HOST || '127.0.0.1';
 const PUBLIC_DIR = process.env.PUBLIC_DIR || './public';
 const UPLOAD_DIR = process.env.UPLOAD_DIR || './public/upload';
 
-const DB_HOST_PORT = process.env.DB_HOST_PORT || '127.0.0.1:27017';
-const DB_USER_PASS = process.env.DB_USER_PASS || 'user00:user000';
-const DB_NAME = process.env.DB_NAME || 'howto-docker';
-const DB_URL = `mongodb://${DB_USER_PASS}@${DB_HOST_PORT}`;
-
-//
-// database
-//
-let dbConnected = false;
-const listModel = (() => {
-  try {
-    mongoose.connect(DB_URL, { 
-      useUnifiedTopology: true, useNewUrlParser: true, dbName: DB_NAME, connectTimeoutMS: 5000 
-    });
-    mongoose.connection.once("open", function() {
-      dbConnected = true;
-      console.log(`>>> DB connected: ${DB_URL}`);
-    });
-
-    return mongoose.model("ListItem", new mongoose.Schema({
-      key: { type: String },
-      value: { type: String }
-    }, {
-      collection: 'lists'
-    }));
-  } catch (e) {
-    console.error(e.message);
-  }
-  return null;
-})();
+console.log(`NODE_ENV  : ${process.env.NODE_ENV}`);
+console.log(`PUBLIC_DIR: ${PUBLIC_DIR}`);
+console.log(`UPLOAD_DIR: ${UPLOAD_DIR}`);
+console.log(`SECRET_KEY: ${process.env.SECRET_KEY}`);
 
 //
 // request handlers
@@ -69,29 +35,8 @@ const handlers = {
       }
     });
   },
-  '/*\/lists\/*/': (req, res) => {
-    if (!dbConnected) {
-      res.writeHead(500);
-      return res.end('Server error');
-    }
-    switch (req.method) {
-      case 'GET':
-        listModel.find({}, (err, result) => {
-          if (err) {
-            console.error(err);
-            res.writeHead(500);
-            res.end(`error. ${err.message}`);
-          } else {
-            res.writeHead(200);
-            res.end(result);
-          }
-        });
-        break;
-      default:
-        res.writeHead(400);
-        res.end('Bad request');
-        break;
-    }
+  '/*\/hello\/*/': (req, res) => {
+    res.end("Hello~");
   },
 };
 
@@ -101,7 +46,8 @@ const handlers = {
 const server = http.createServer((req, res) => {
   const { url } = req;
   const fpath = path.join(PUBLIC_DIR, url);
-  console.log('Got request');
+  console.log('request:', url);
+
   if (fs.existsSync(fpath)) {
     res.writeHead(200);
     res.end("ok. found: " + fpath);
@@ -118,13 +64,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-    console.log(`DB_URL: ${DB_URL}`);
-    console.log(`PUBLIC_DIR: ${PUBLIC_DIR}`);
-    console.log(`UPLOAD_DIR: ${UPLOAD_DIR}`);
-    console.log(`LOG_DIR: ${process.env.LOG_DIR}`);
-    console.log(`SECRET_KEY: ${process.env.SECRET_KEY}`);
-    console.log(`listening on ${HOST}:${PORT}`);
+  console.log(`Listening on ${HOST}:${PORT}`);
 });
 
 //
@@ -134,10 +74,7 @@ process.on('SIGINT', function() {
   console.log("\nGracefully shutting down from SIGINT" );
   // some other closing procedures go here
   server.close((err) => {
-    mongoose.connection.close(() => {
-      if (err) console.error("!!!ERR", err), process.exit(1);
-      else process.exit(0);
-    });
-    dbConnected = false;
+    if (err) console.error("!!!ERR", err);
+    process.exit(err ? 1 : 0);
   });
 });

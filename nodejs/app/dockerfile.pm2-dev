@@ -14,7 +14,8 @@ VOLUME [ "/workdir" ]
 # env mode
 ENV NODE_ENV development
 
-# goto app directory
+# In development mode, we do not copy the source files.
+# we will map `/workdir` volume to our working directory in local.
 WORKDIR /workdir
 
 # misc
@@ -24,4 +25,4 @@ ENV SECRET_KEY "at-docker-file-pm2-dev"
 # run. use pm2-dev on dev mode
 # See https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/#development-environment
 # use *shell form* for variable substitution
-ENTRYPOINT pm2-dev ecosystem.config.js --env "$NODE_ENV"
+ENTRYPOINT pm2-dev pm2-docker.config.json --env "$NODE_ENV"

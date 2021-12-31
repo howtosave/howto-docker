@@ -10,8 +10,7 @@
 // # Constants
 // ###################################################
 
-const PROJECT_NAME = "webapp";
-const INSTANCE_COUNT = process.env.INSTANCE_COUNT || 1; // 0: the maximum processes possible according to the numbers of CPUs (cluster mode)
+const pm2Config = require("./pm2-docker.config.json");
 const LOG_DIR = process.env.LOG_DIR || './tmp/log';
 
 const deployConfig = {
@@ -19,7 +18,7 @@ const deployConfig = {
   SVC_SERVER: "127.0.0.1",
   GIT_BRANCH: "origin/master",
   GIT_REPO: __dirname,
-  DEST_PATH: `/srv/prod/${PROJECT_NAME}`,
+  DEST_PATH: `/srv/prod/${pm2Config.name}`,
 };
 
 // ###################################################
@@ -47,7 +46,7 @@ const post_deploy = [
 ];
 
 // See https://pm2.keymetrics.io/docs/usage/watch-and-restart/
-const watch_options = {
+const watchOptions = {
   watch: process.env.NODE_ENV === 'production' ? false : ['src'],
   // Delay between restart
   watch_delay: 1000,
@@ -60,21 +59,13 @@ const watch_options = {
 module.exports = {
   apps: [
     {
-      name: PROJECT_NAME,
-      script: './src/index.js',
-      args: '',
+      ...pm2Config,
       instances: INSTANCE_COUNT,
       exec_mode: "cluster",
-      env: {
-        NODE_ENV: "development",
-      },
-      env_production: {
-        NODE_ENV: "production",
-      },
       log_date_format: 'YY-MM-DD HH:mm:ss',    
       error_file: `${LOG_DIR}/error.log`,
       out_file: `${LOG_DIR}/access.log`, // disable: "/dev/null"
-      ...watch_options,
+      ...watchOptions,
     },
   ],
   

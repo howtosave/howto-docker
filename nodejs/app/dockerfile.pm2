@@ -36,15 +36,15 @@ VOLUME [ "${volume_ro}", "${volume_rw}" ]
 # host
 #
 
-# NOT 127.0.0.1 but 0.0.0.0
-ENV HOST_PORT '0.0.0.0:1337'
+# NOT 127.0.0.1
+ENV HOST '0.0.0.0'
 
 #
 # copy and install
 #
 
 # Create and goto app directory
-WORKDIR /usr/src/app
+WORKDIR /src/app
 
 # Bundle app source
 COPY . .
@@ -57,4 +57,4 @@ ENV SECRET_KEY "at-docker-file-pm2"
 #
 # run
 # use *shell form* for variable substitution
-ENTRYPOINT pm2-runtime ecosystem.config.js --env ${NODE_ENV}
+ENTRYPOINT pm2-runtime pm2-docker.config.json --env ${NODE_ENV}
