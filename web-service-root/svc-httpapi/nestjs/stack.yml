@@ -52,7 +52,7 @@ services:
       context: .
       dockerfile: dockerfile.pm2
     container_name: SVC_HTTPAPI_nestjs
-    image: "howtodocker:nestjs"
+    image: howtodocker:nestjs
     environment:
       PORT: 1337
     ports:

@@ -52,7 +52,7 @@ services:
 
   SVC_HTTPAPI:
     container_name: SVC_HTTPAPI
-    image: "howtodocker:nestjs"
+    image: howtodocker:nestjs
     environment:
       PORT: 1337
     ports:
@@ -76,7 +76,7 @@ services:
 
   SVC_PROXY:
     container_name: SVC_PROXY
-    image: nginx:1.21-alpine
+    image: howtodocker:nginx
     command: []
     restart: always
     environment: []
@@ -85,15 +85,12 @@ services:
       - 8000:80
     volumes:
       # relative path to the Compose file
-      # html files
-      - ../svc-storage/var/nginx/html:/usr/share/nginx/html:ro
-      # config files
-      - ../svc-storage/etc/nginx:/etc/nginx
-      # log files
-      - ../svc-storage/var/nginx/log:/var/log/nginx
-      # cache and run-time files
-      - ../svc-storage/var/nginx/cache:/var/cache/nginx
-      - ../svc-storage/var/nginx/run:/var/run
+      # read-only volume
+      - ./svc-storage/nginx/config:/etc/nginx:ro
+      - ./svc-storage/nginx/readonly:/volume-ro:ro
+      # read-write volume
+      - ./svc-storage/nginx/readwrite:/volume-rw
+      #- ./svc-storage/nginx/readwrite/cache:/var/cache/nginx
     networks:
       default:
         ipv4_address: 10.0.0.2 # static ip
