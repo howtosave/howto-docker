@@ -1,0 +1,11 @@
+{
+  "name": "SVC_DB",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "docker:build": "docker-compose -p mysql -f mysql.stack.yml build",
+    "docker:run": "docker-compose -p mysql -f mysql.stack.yml up -d",
+    "docker:kill": "docker-compose -p mysql -f mysql.stack.yml down"
+  }
+}
