@@ -1,0 +1,35 @@
+# See https://hub.docker.com/_/nginx
+
+version: "3.9"
+
+services:
+
+  nginx:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: my-nginx
+    command: []
+    restart: always
+    environment: []
+    ports:
+      - 8000:80 # nginxd
+    volumes:
+      # read-only volume
+      - ./volume/nginx/config:/etc/nginx:ro
+      - ./volume/nginx/readonly:/volume-ro:ro
+      # read-write volume
+      - ./volume/nginx/readwrite:/volume-rw
+      #- ./volume/nginx/readwrite/cache:/var/cache/nginx
+    networks:
+      default:
+        ipv4_address: 10.1.1.2 # static ip
+  
+networks:
+
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.1.0/24 # mask: 255.255.255.0
+          gateway: 10.1.1.1

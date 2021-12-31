@@ -1,0 +1,12 @@
+{
+  "name": "multi-prefix-url",
+  "version": "1.0.0",
+  "scripts": {
+    "docker:build": "docker-compose -f stack.yml build",
+    "docker:up": "docker-compose -f stack.yml up",
+    "docker:down": "docker-compose -f stack.yml down",
+    "conf:check": "docker exec -it my-nginx nginx -t",
+    "conf:reload": "docker exec -it my-nginx nginx -s reload"
+  },
+  "license": "MIT"
+}
