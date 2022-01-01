@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "docker:build": "docker-compose -p mysql -f mysql.stack.yml build",
-    "_docker:copy": "cp ./initdb.d/* ../svc-storage/var/mysql/initdb.d",
-    "docker:up": "yarn _docker:copy && docker-compose -p mysql -f mysql.stack.yml up -d",
+    "docker:build": "docker-compose -f mysql.stack.yml build",
+    "docker:init": "mkdir -p ../svc-storage/mysql/readonly/initdb.d && cp ./initdb.d/* ../svc-storage/mysql/readonly/initdb.d",
+    "docker:up": "yarn docker:init && docker-compose -p mysql -f mysql.stack.yml up",
     "docker:down": "docker-compose -p mysql -f mysql.stack.yml down"
   }
 }

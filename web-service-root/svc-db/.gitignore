@@ -1,2 +1,2 @@
 
-svc-storage/var/**
+svc-storage/*/readwrite/*

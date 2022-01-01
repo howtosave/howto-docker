@@ -1,0 +1,13 @@
+# See https://hub.docker.com/_/mysql
+
+FROM mysql:8.0
+
+#
+# N.B.
+#
+# dockerfile을 통해 빌드 시, platform을 'linux/x86_64'로 명시해 줘야한다.
+# M1 Mac platform은 'linux/arm64/v8' 인데,
+# mysql은 해당 플랫폼에 대한 Official image를 지원하지 않는다.
+#
+# docker pull --platform linux/x86_64 mysql:8.0
+#

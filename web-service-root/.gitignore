@@ -122,10 +122,3 @@ node_modules
 
 testApp
 coverage
-
-#
-# Misc.
-#
-svc-storage/var/*/*/*
-!svc-storage/var/mysql/initdb.d/*
-!svc-storage/var/nginx/html/*
