@@ -15,7 +15,8 @@
     "docker:check:proxy": "curl -LI http://localhost:8000 >>/dev/null 2>&1 && echo ok || echo !!! failure",
     "docker:check:web": "curl -LI http://localhost:3000 >>/dev/null 2>&1 && echo ok || echo !!! failure",
     "docker:check": "yarn docker:check:db && yarn docker:check:api && yarn docker:check:proxy && yarn docker:check:web",
-    "docker:down": "docker-compose -p web-service -f web-service.stack.yml down"
+    "docker:down": "docker-compose -p web-service -f web-service.stack.yml down",
+    "proxy:reload": "docker exec -it SVC_PROXY nginx -s reload"
   },
   "license": "MIT",
   "devDependencies": {

@@ -18,20 +18,22 @@
 
 ### SVC_DB
 
-- MySQL
+- [x] MySQL
 
 ### SVC_HTTPAPI
 
-- Strapi
-- NestJS
+- [ ] Strapi
+- [x] NestJS
 
 ### SVC_WEBCLIENT
 
-- NextJS
+- [ ] NextJS
+  - [x] Dynamic
+  - [ ]Static
 
 ### SVC_PROXY
 
-- NginX
+- [x] NginX
 
 ### SVC_STORAGE
 
@@ -53,3 +55,19 @@
 - subnet: 10.1.1.0/24
 - gateway: 10.1.1.1
 - SVC_PROXY: 10.1.1.2
+
+## Domain
+
+### c.com / www.c.com
+
+- `/`: passed to SVC_WEBCLIENT
+  - ```curl -I http://www.c.com```
+
+### api.c.com
+
+- `/api`: passed to SVC_HTTPAPI
+  - ```curl -I http://api.c.com/api```
+- `/api-staic`: service from `/svc-storage/readonly/api.c.com/api-static`
+  - ```curl -I http://api.c.com/api-static/whois.html```
+- `/api2-staic`: service from `/svc-storage/readonly/api.c.com/api2-static`
+  - ```curl -I http://api.c.com/api2-static/whois.html```

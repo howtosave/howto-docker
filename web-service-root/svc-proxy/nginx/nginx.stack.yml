@@ -2,11 +2,11 @@ version: '3.9'
 
 services:
 
-  SVC_PROXY:
+  SVC_PROXY_nginx:
     build:
       context: "."
       dockerfile: Dockerfile
-    container_name: SVC_PROXY
+    container_name: SVC_PROXY_nginx
     image: howtodocker:nginx
     command: []
     restart: always
