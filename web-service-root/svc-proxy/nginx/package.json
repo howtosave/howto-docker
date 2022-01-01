@@ -5,8 +5,9 @@
   "scripts": {
     "reload:check": "docker exec -it SVC_PROXY_nginx nginx -t",
     "reload": "docker exec -it SVC_PROXY_nginx nginx -s reload",
+    "docker:init": "mkdir -p ../svc-storage/nginx/readwrite/log/c.com",
     "docker:build": "docker-compose -f nginx.stack.yml build",
-    "docker:up": "docker-compose -f nginx.stack.yml up -d",
+    "docker:up": "docker-compose -f nginx.stack.yml up",
     "docker:down": "docker-compose -f nginx.stack.yml down"
   }
 }
