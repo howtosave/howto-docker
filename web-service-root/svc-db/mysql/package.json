@@ -1,5 +1,5 @@
 {
-  "name": "SVC_DB",
+  "name": "svc-db-mysql",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {

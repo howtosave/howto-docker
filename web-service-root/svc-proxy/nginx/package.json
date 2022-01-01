@@ -1,8 +1,9 @@
 {
-  "name": "SVC_PROXY",
+  "name": "svc-proxy-nginx",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "test": "echo test...",
     "docker:build": "docker-compose -f nginx.stack.yml build",
     "docker:up": "docker-compose -f nginx.stack.yml up -d",
     "docker:down": "docker-compose -f nginx.stack.yml down"

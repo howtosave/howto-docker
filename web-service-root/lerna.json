@@ -1,0 +1,14 @@
+{
+  "packages": [
+    "svc-db/*",
+    "svc-httpapi/*",
+    "svc-proxy/*",
+    "svc-webclient/*"
+  ],
+  "command": {
+    "run": {
+      "npmClient": "yarn"
+    }
+  },
+  "version": "0.0.0"
+}

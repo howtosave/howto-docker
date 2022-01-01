@@ -1,6 +1,5 @@
 {
-  "name": "nextjs-app",
-  "private": true,
+  "name": "svc-webclient-nextjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

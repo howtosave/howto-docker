@@ -1,9 +1,8 @@
 {
-  "name": "nestjs-app",
-  "version": "0.0.1",
+  "name": "svc-httpapi-nestjs",
+  "version": "1.0.0",
   "description": "",
   "author": "",
-  "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
