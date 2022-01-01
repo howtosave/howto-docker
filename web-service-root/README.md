@@ -56,18 +56,22 @@
 - gateway: 10.1.1.1
 - SVC_PROXY: 10.1.1.2
 
-## Domain
+## Domain and major URLs
 
 ### c.com / www.c.com
 
-- `/`: passed to SVC_WEBCLIENT
-  - ```curl -I http://www.c.com```
+- `/`: 
+  - On dynamic service mode, the request is passed to SVC_WEBCLIENT.
+  - On static service mode, the request is service from `/svc-storage/readonly/c.com/html` directory.
+  - go to [the page](http://www.c.com)
+- `/static`: service from `/svc-storage/readonly/c.com/html/static`
+  - go to [the page](http://www.c.com/static/whois.html)
 
 ### api.c.com
 
 - `/api`: passed to SVC_HTTPAPI
-  - ```curl -I http://api.c.com/api```
+  - go to [the page](http://api.c.com/api)
 - `/api-staic`: service from `/svc-storage/readonly/api.c.com/api-static`
-  - ```curl -I http://api.c.com/api-static/whois.html```
+  - go to [the page](http://api.c.com/api-static/whois.html)
 - `/api2-staic`: service from `/svc-storage/readonly/api.c.com/api2-static`
-  - ```curl -I http://api.c.com/api2-static/whois.html```
+  - go to [the page](http://api.c.com/api2-static/whois.html)

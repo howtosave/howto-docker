@@ -6,7 +6,7 @@
   "scripts": {
     "docker:build": "lerna run --scope 'svc-{db,httpapi,proxy,webclient}-*' docker:build",
     "docker:build2": "lerna run --scope svc-proxy-nginx docker:build",
-    "_docker:init:nginx": "mkdir -p ./svc-storage/nginx/readwrite/run;mkdir -p ./svc-storage/nginx/readwrite/log;mkdir -p ./svc-storage/nginx/readwrite/log/{a.com,b.com,c.com}",
+    "_docker:init:nginx": "mkdir -p ./svc-storage/nginx/readwrite/run;mkdir -p ./svc-storage/nginx/readwrite/log/{c.com,api.c.com}",
     "_docker:init:nestjs": "mkdir -p ./svc-storage/var/mysql/initdb.d && cp ./svc-httpapi/nestjs/initdb.d/* ./svc-storage/var/mysql/initdb.d",
     "docker:init": "yarn _docker:init:nginx && yarn _docker:init:nestjs",
     "docker:up": "docker-compose -p web-service -f web-service.stack.yml up",
