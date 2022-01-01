@@ -5,6 +5,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "docker:init": "rm -rf ../svc-storage/nginx/readonly/c.com/html/* && cp -r ./public/* ../svc-storage/nginx/readonly/c.com/html",
     "docker:build": "yarn build && docker-compose -f ./docker-stack.yml build --progress=plain",
     "docker:up": "docker-compose -f ./docker-stack.yml up",
     "docker:down": "docker-compose -f ./docker-stack.yml down"

@@ -24,6 +24,26 @@ services:
       default:
         ipv4_address: 10.0.0.31 # static ip
 
+  SVC_PROXY_nginx:
+    container_name: SVC_PROXY_nginx
+    image: howtodocker:nginx
+    command: []
+    restart: always
+    environment: []
+    ports:
+      # host:container
+      - 8000:80
+    volumes:
+      # relative path to the Compose file
+      # read-only volume
+      - ../svc-storage/nginx/config:/etc/nginx:ro
+      - ../svc-storage/nginx/readonly:/volume-ro:ro
+      # read-write volume
+      - ../svc-storage/nginx/readwrite:/volume-rw
+    networks:
+      default:
+        ipv4_address: 10.0.0.2 # static ip
+
 networks:
 
   default: # internal

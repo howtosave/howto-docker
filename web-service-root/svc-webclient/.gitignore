@@ -1,0 +1,7 @@
+
+#
+# svc-storage
+#
+/svc-storage/*/readonly/**/*
+/svc-storage/*/readwrite/*/*/*
+!/svc-storage/*/readwrite/*/*/.gitkeep
