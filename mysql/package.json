@@ -8,15 +8,15 @@
     "docker:default:setup": "echo none",
     "docker:default:init": "echo none",
     "docker:default:build": "echo none",
-    "docker:default:up": "docker-compose -f default/mysql.stack.yml up",
-    "docker:default:down": "docker-compose -f default/mysql.stack.yml down",
+    "docker:default:up": "docker-compose -f default/stack.yml up",
+    "docker:default:down": "docker-compose -f default/stack.yml down",
     "docker:default:verify": "docker exec mysql-default bash -c 'mysql -uroot -proot000 -e \"show databases;\" && echo \"*** OK\" || echo \"!!! FAILED\"'",
     "//": "for mysql-custom",
     "docker:custom:setup": "echo none",
     "docker:custom:init": "echo none",
     "docker:custom:build": "echo none",
-    "docker:custom:up": "docker-compose -f custom/mysql.stack.yml up",
-    "docker:custom:down": "docker-compose -f custom/mysql.stack.yml down",
+    "docker:custom:up": "docker-compose -f custom/stack.yml up",
+    "docker:custom:down": "docker-compose -f custom/stack.yml down",
     "docker:custom:verify": "docker exec mysql-custom bash -c 'mysql -uroot -proot000 -e \"show databases;\" && echo \"*** OK\" || echo \"!!! FAILED\"'"
   }
 }

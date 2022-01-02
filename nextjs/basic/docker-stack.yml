@@ -1,0 +1,34 @@
+# 
+
+version: '3.9'
+
+services:
+
+  WEBCLIENT:
+    build:
+      context: .
+      dockerfile: dockerfile.pm2
+    container_name: webclient_nextjs_basic
+    image: howtodocker:nextjs_basic
+    environment:
+      PORT: 3000
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    volumes:
+      # relative path to the Compose file
+      - ./volume/nextjs:/volume-ro
+      - ./volume/nextjs:/volume-rw
+    networks:
+      default:
+        ipv4_address: 10.0.0.31 # static ip
+
+networks:
+
+  default: # internal
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.0.0/24 # mask: 255.255.255.0
+          gateway: 10.0.0.1

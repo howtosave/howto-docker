@@ -71,7 +71,7 @@ services:
 
   SVC_WEBCLIENT:
     container_name: SVC_WEBCLIENT
-    image: howtodocker:nextjs
+    image: howtodocker:nextjs_basic
     environment:
       PORT: 3000
     expose:
