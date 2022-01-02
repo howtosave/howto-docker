@@ -1,5 +1,7 @@
 {
-  "name": "svc-webclient-nextjs",
+  "name": "nextjs-with-nginx",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
