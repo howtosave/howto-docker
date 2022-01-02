@@ -5,23 +5,16 @@ version: "3.9"
 services:
 
   nginx:
-    container_name: nginx-dev
+    container_name: nginx-default
     image: nginx:1.21-alpine
     command: []
     restart: always
     environment: []
     ports:
-      - 8080:80 # nginxd
+      - 8000:80 # nginxd
     volumes:
       # html files
-      - ./volume/var/nginx/html:/usr/share/nginx/html:ro
-      # config files
-      - ./volume/etc/nginx:/etc/nginx
-      # log files
-      - ./volume/var/nginx/log:/var/log/nginx
-      # cache and run-time files
-      - ./volume/var/nginx/cache:/var/cache/nginx
-      - ./volume/var/nginx/run:/var/run
+      - ./volume/nginx/html:/usr/share/nginx/html:ro
     networks:
       frontend:
         ipv4_address: 10.1.1.2 # static ip

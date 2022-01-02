@@ -5,7 +5,7 @@ version: "3.9"
 services:
 
   nginx:
-    container_name: nginx-multi-domain
+    container_name: nginx-custom
     image: nginx:1.21-alpine
     command: []
     restart: always
@@ -13,17 +13,19 @@ services:
     ports:
       - 8000:80 # nginxd
     volumes:
-      # config
+      # html dir
+      - ./volume/nginx/html:/usr/share/nginx/html:ro
+      # config dir
       - ./volume/nginx/config:/etc/nginx
-      # read-only volume
-      - ./volume/nginx/readonly:/volume-ro:ro
-      # read-write volume
-      - ./volume/nginx/readwrite:/volume-rw
-      #- ./volume/nginx/readwrite/cache:/var/cache/nginx
+      # log dir
+      - ./volume/nginx/log:/var/log/nginx
+      # runtime file
+      - ./volume/nginx/run:/var/run
+      - ./volume/nginx/cache:/var/cache/nginx
     networks:
       default:
         ipv4_address: 10.1.1.2 # static ip
-
+  
 networks:
 
   default:

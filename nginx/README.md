@@ -4,35 +4,37 @@
 
 ```sh
 # run
-docker-compose -p nginx-svc -f stack.yml up
+yarn docker:default:up
 # OR run in background
-docker-compose -p nginx-svc -f stack.yml -d up
+yarn docker:default:up -d
 
 # kill
-docker-compose -p nginx-svc -f stack.yml down
+yarn docker:default:down
 ```
 
 ## Copy files
 
+```docker cp {container_id}:{src_dir} {dest-dir}```
+
 ```sh
 # find '{container_id}` from `docker ps`
-docker cp {container_id}:/etc/ngin ./nginx-volume
+docker cp nginx-custom:/var/log/nginx ./nginx-log
 ```
 
 ## Interactive shell
 
 ```sh
 # N.B. bash is not availble in nginx:1.21-alpine image.
-docker exec -it nginx-dev sh
+docker exec -it nginx-custom sh
 ```
 
 ## Update config
 
 ```sh
 # check
-docker exec -it nginx-dev nginx -t
+docker exec nginx-dev nginx -t
 # reload
-docker exec -it nginx-dev nginx -s reload
+docker exec nginx-dev nginx -s reload
 ```
 
 ## TODO

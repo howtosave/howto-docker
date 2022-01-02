@@ -1,0 +1,29 @@
+{
+  "name": "multi-prefix-url",
+  "version": "1.0.0",
+  "scripts": {
+    "docker:prune": "docker container prune -f; docker image prune -f; docker network prune -f",
+    "docker:verify": "curl -I http://localhost:8000 >> /dev/null 2>&1 && echo OK || echo FAILED",
+    "//": "for default",
+    "docker:default:setup": "echo none",
+    "docker:default:init": "echo none",
+    "docker:default:build": "echo none",
+    "docker:default:up": "docker-compose -f default/stack.yml up",
+    "docker:default:down": "docker-compose -f default/stack.yml down",
+    "//": "for default",
+    "docker:custom:setup": "mkdir -p ./custom/volume/nginx/{log,run,cache}",
+    "docker:custom:init": "echo none",
+    "docker:custom:build": "echo none",
+    "docker:custom:up": "docker-compose -f custom/stack.yml up",
+    "docker:custom:down": "docker-compose -f custom/stack.yml down",
+    "//": "for multi-domain",
+    "docker:md:setup": "mkdir -p ./multi-domain/volume/nginx/readwrite/{log,run,cache};mkdir -p ./multi-domain/volume/nginx/readwrite/log/{a.com,b.com,c.com}",
+    "docker:md:build": "echo none",
+    "docker:md:up": "docker-compose -f ./multi-domain/stack.yml up",
+    "docker:md:down": "docker-compose -f ./multi-domain/stack.yml down",
+    "docker:verify-domain": "curl -I http://a.com:8000 >> /dev/null 2>&1 && curl -I http://b.com:8000 >> /dev/null 2>&1 && curl -I http://c.com:8000 >> /dev/null 2>&1 && echo OK || echo FAILED",
+    "conf:md:check": "docker exec nginx-multi-domain nginx -t",
+    "conf:md:reload": "docker exec nginx-multi-domain nginx -s reload"
+  },
+  "license": "MIT"
+}
