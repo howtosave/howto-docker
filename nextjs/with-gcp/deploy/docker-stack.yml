@@ -6,10 +6,10 @@ services:
 
   WEBCLIENT:
     build:
-      context: ./
+      context: ../
       dockerfile: dockerfile.pm2
-    container_name: nextjs-basic
-    image: howtodocker:nextjs_basic
+    container_name: nextjs-with-gcp
+    image: howtodocker:nextjs_with_gcp
     environment:
       PORT: 3000
       HOST: 0.0.0.0
@@ -20,8 +20,8 @@ services:
       - 3000:3000
     volumes:
       # relative path to the Compose file
-      - ./volume/nextjs:/volume-ro
-      - ./volume/nextjs:/volume-rw
+      - ./volume/nextjs/readonly:/volume-ro
+      - ./volume/nextjs/readwrite:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.31 # static ip

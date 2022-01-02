@@ -6,7 +6,7 @@
 _DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 CMD=$1
-VOLUME_DIR=${2:-./volume}
+VOLUME_DIR=${2:-${_DIR}/volume}
 
 echo "$CMD to $VOLUME_DIR"
 
@@ -22,6 +22,7 @@ if [ "$CMD" == "setup" ]; then
     mkdir -p $VOLUME_DIR/nextjs/readwrite/log
     # html dir
     mkdir -p $VOLUME_DIR/nginx/readonly/c.com/html
+
     update
 elif [ "$CMD" == "update" ]; then
     update

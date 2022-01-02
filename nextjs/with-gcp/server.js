@@ -13,6 +13,6 @@ app.prepare().then(() => {
   createServer(nextjsHandler)
   .listen(appConfig.port, appConfig.host, (err) => {
     if (err) throw err
-    console.log(`>>> Ready on http://${appConfig.host}:${appConfig.port} -> ${appConfig.serviceUrl}`);
+    console.log(`> Ready on http://${appConfig.host}:${appConfig.port}`);
   });
 });

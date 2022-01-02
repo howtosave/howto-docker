@@ -43,7 +43,7 @@ RUN npm install pm2 -g
 ENV NODE_ENV production
 ENV PUBLIC_DIR "/volume-ro/public"
 ENV UPLOAD_DIR "/volume-rw/upload"
-ENV LOG_DIR "/volume-rw/log"
+ENV LOG_DIR "/volume-rw/log/pm2"
 
 # volumes to be bound at runtime
 VOLUME [ "/volume-ro", "/volume-rw" ]

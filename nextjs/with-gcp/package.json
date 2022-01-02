@@ -1,0 +1,32 @@
+{
+  "name": "nextjs-with-gcp",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "export": "yarn build && next export",
+    "start": "NODE_ENV=production node server.js",
+    "serve": "serve -p 3000 out",
+    "lint": "next lint",
+    "docker:setup": "bash ./deploy/docker-deploy.sh setup",
+    "docker:update": "bash ./deploy/docker-deploy.sh update",
+    "docker:build": "yarn build && docker-compose -f ./deploy/docker-stack.yml build --progress=plain",
+    "docker:up": "docker-compose -f ./deploy/docker-stack.yml up",
+    "docker:down": "docker-compose -f ./deploy/docker-stack.yml down"
+  },
+  "dependencies": {
+    "next": "12.0.7",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "sharp": "^0.29.3"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.5",
+    "@types/react": "17.0.38",
+    "eslint": "8.5.0",
+    "eslint-config-next": "12.0.7",
+    "serve": "^13.0.2",
+    "typescript": "4.5.4"
+  }
+}

@@ -4,6 +4,6 @@
   "private": true,
   "license": "UNLICENSED",
   "workspaces": [
-    "basic", "with-nginx"
+    "basic", "with-nginx", "with-gcp"
   ]
 }
