@@ -16,8 +16,8 @@ version: '3.9'
 
 services:
 
-  SVC_DB_mysql:
-    container_name: SVC_DB_mysql
+  db:
+    container_name: mysql-custom
     image: mysql:8.0
     command: --authentication-policy='caching_sha2_password'
     restart: always
@@ -28,41 +28,40 @@ services:
       - 3306:3306   # /usr/sbin/mysqld
       - 33060:33060 # X Plugin
     volumes:
-      # relative path to the Compose file
       # readwrite(data)
-      - ../svc-storage/mysql/readwrite:/var/lib/mysql
+      - ./volume/mysql/readwrite/data:/var/lib/mysql
       # initial db script directory
-      - ../svc-storage/mysql/readonly/initdb.d:/docker-entrypoint-initdb.d:ro
+      - ./volume/mysql/readonly/initdb.d:/docker-entrypoint-initdb.d:ro
     networks:
       default:
         ipv4_address: 10.0.0.21 # static ip
 
-  SVC_DB_adminer:
-    container_name: SVC_DB_adminer
+  adminer:
+    container_name: adminer
     image: adminer
     restart: always
     environment:
-      ADMINER_DEFAULT_SERVER: SVC_DB_mysql
+      ADMINER_DEFAULT_SERVER: mysql-custom
     ports:
       - 8080:8080
     networks:
       default:
         ipv4_address: 10.0.0.29 # static ip
 
-  SVC_HTTPAPI_nestjs:
+  nestjs:
     build:
       context: .
       dockerfile: dockerfile.pm2
-    container_name: SVC_HTTPAPI_nestjs
-    image: howtodocker:nestjs
+    container_name: nestjs-www-api
+    image: howtodocker:nestjs_www_api
     environment:
       PORT: 1337
     ports:
       - 1337:1337
     volumes:
       # relative path to the Compose file
-      - ../svc-storage/nestjs:/volume-ro
-      - ../svc-storage/nestjs:/volume-rw
+      - ./volume/nestjs:/volume-ro
+      - ./volume/nestjs:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.11 # static ip

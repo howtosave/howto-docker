@@ -12,11 +12,10 @@ echo "$CMD to $VOLUME_DIR"
 
 function update {
     local dest="$1"
-    cp -r ./config/mysql/* $VOLUME_DIR/mysql/config
+    cp -r ./initdb.d/* $VOLUME_DIR/mysql/readonly/initdb.d
 }
 
 if [ "$CMD" == "setup" ]; then
-    mkdir -p $VOLUME_DIR/mysql/{config,readonly,readwrite}
     mkdir -p $VOLUME_DIR/mysql/readonly/initdb.d
     update
 elif [ "$CMD" == "update" ]; then
