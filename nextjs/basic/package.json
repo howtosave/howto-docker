@@ -7,8 +7,8 @@
     "start": "NODE_ENV=production node server.js",
     "serve": "serve -p 3000 out",
     "lint": "next lint",
-    "docker:setup": "rm -rf ./volume/nginx/readonly/c.com/html/* && cp -r ./public/* ./volume/nginx/readonly/c.com/html",
-    "docker:init": "echo none",
+    "docker:setup": "bash ./docker-deploy.sh setup",
+    "docker:update": "bash ./docker-deploy.sh update",
     "docker:build": "yarn build && docker-compose -f ./docker-stack.yml build --progress=plain",
     "docker:up": "docker-compose -f ./docker-stack.yml up",
     "docker:down": "docker-compose -f ./docker-stack.yml down"

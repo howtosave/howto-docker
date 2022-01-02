@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "docker:build": "lerna run --scope 'svc-{db,httpapi,proxy,webclient}-*' docker:build",
-    "docker:build2": "lerna run --scope svc-proxy-nginx docker:build",
+    "ls": "lerna ls",
+    "docker:build": "lerna run --scope 'svc-{db,httpapi,proxy}-*' --scope nextjs-basic docker:build",
+    "docker:setup": "lerna run --scope nextjs-basic docker:setup -- $INIT_CWD/svc-storage",
+    "docker:update": "lerna run --scope nextjs-basic docker:update -- $INIT_CWD/svc-storage",
     "_docker:init:nginx": "mkdir -p ./svc-storage/nginx/readwrite/run;mkdir -p ./svc-storage/nginx/readwrite/log/{c.com,api.c.com}",
     "_docker:init:nestjs": "mkdir -p ./svc-storage/mysql/readonly/initdb.d && cp ./svc-httpapi/nestjs/initdb.d/* ./svc-storage/mysql/readonly/initdb.d",
     "docker:init": "yarn _docker:init:nginx && yarn _docker:init:nestjs",

@@ -3,7 +3,7 @@
     "svc-db/*",
     "svc-httpapi/*",
     "svc-proxy/*",
-    "svc-webclient/*"
+    "../nextjs/basic"
   ],
   "command": {
     "run": {
