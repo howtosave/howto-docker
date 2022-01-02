@@ -1,6 +1,6 @@
 {
   "packages": [
-    "svc-db/*",
+    "../mysql/custom",
     "svc-httpapi/*",
     "svc-proxy/*",
     "../nextjs/basic"

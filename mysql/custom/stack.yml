@@ -22,10 +22,10 @@ services:
       - 3306:3306   # /usr/sbin/mysqld
       - 33060:33060 # X Plugin
     volumes:
-      # data
-      - ./volume/data:/var/lib/mysql
       # config
       - ./config/mysql:/etc/mysql:ro
+      # data
+      - ./volume/data:/var/lib/mysql
       # initdb directory invoked only for the first time init.
       - ./initdb.d:/docker-entrypoint-initdb.d:ro
     networks:

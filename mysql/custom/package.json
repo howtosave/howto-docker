@@ -1,0 +1,14 @@
+{
+  "name": "mysql-custom",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "docker:prune": "docker container prune -f; docker image prune -f; docker network prune -f",
+    "docker:setup": "bash ./docker-deploy.sh setup",
+    "docker:update": "bash ./docker-deploy.sh update",
+    "docker:build": "echo none",
+    "docker:up": "docker-compose -f stack.yml up",
+    "docker:down": "docker-compose -f stack.yml down",
+    "docker:verify": "docker exec mysql-custom bash -c 'mysql -uroot -proot000 -e \"show databases;\" && echo \"*** OK\" || echo \"!!! FAILED\"'"
+  }
+}

@@ -36,7 +36,7 @@ services:
       - ./svc-storage/mysql/config:/etc/mysql:ro
       # readwrite
       - ./svc-storage/mysql/readwrite:/volume-rw
-      # initial db script directory
+      # initdb directory invoked only for the first time init.
       - ./svc-storage/mysql/readonly/initdb.d:/docker-entrypoint-initdb.d:ro
     networks:
       default:
