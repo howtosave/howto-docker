@@ -7,7 +7,7 @@
     "docker:verify": "curl -I http://localhost:8000 >> /dev/null 2>&1 && echo OK || echo FAILED",
     "docker:setup": "bash ./docker-deploy.sh setup",
     "docker:update": "bash ./docker-deploy.sh update",
-    "docker:build": "docker-compose ./stack.yml build",
+    "docker:build": "docker-compose -f ./stack.yml build",
     "docker:up": "docker-compose -f ./stack.yml up",
     "docker:down": "docker-compose -f ./stack.yml down",
     "docker:verify-domain": "curl -I http://a.com:8000 >> /dev/null 2>&1 && curl -I http://b.com:8000 >> /dev/null 2>&1 && curl -I http://c.com:8000 >> /dev/null 2>&1 && echo OK || echo FAILED",

@@ -56,7 +56,7 @@ services:
 
   SVC_HTTPAPI:
     container_name: SVC_HTTPAPI
-    image: howtodocker:nestjs_www_api
+    image: howtodocker:nestjs_dbbasic
     environment:
       PORT: 1337
     ports:

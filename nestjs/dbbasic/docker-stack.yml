@@ -52,8 +52,8 @@ services:
     build:
       context: .
       dockerfile: dockerfile.pm2
-    container_name: nestjs-www-api
-    image: howtodocker:nestjs_www_api
+    container_name: nestjs-dbbasic
+    image: howtodocker:nestjs_dbbasic
     environment:
       PORT: 1337
     ports:
