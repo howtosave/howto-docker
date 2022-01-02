@@ -1,3 +1,0 @@
-
-svc-storage/nginx/readwrite/*
-!svc-storage/nginx/readwrite/.git-keep

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "ls": "lerna ls",
-    "docker:build": "lerna run --scope 'svc-{db,httpapi,proxy}-*' --scope nextjs-basic docker:build",
+    "docker:build": "lerna run docker:build",
     "docker:setup": "lerna run docker:setup -- $INIT_CWD/svc-storage",
     "docker:update": "lerna run --scope nextjs-basic docker:update -- $INIT_CWD/svc-storage",
     "_docker:init:nginx": "mkdir -p ./svc-storage/nginx/readwrite/run;mkdir -p ./svc-storage/nginx/readwrite/log/{c.com,api.c.com}",

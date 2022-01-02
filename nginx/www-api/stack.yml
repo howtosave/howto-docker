@@ -2,12 +2,12 @@ version: '3.9'
 
 services:
 
-  SVC_PROXY_nginx:
+  nginx:
     build:
       context: "."
       dockerfile: Dockerfile
-    container_name: SVC_PROXY_nginx
-    image: howtodocker:nginx
+    container_name: nginx-www-api
+    image: howtodocker:nginx_www_api
     command: []
     restart: always
     environment: []
@@ -15,13 +15,12 @@ services:
       # host:container
       - 8000:80
     volumes:
-      # relative path to the Compose file
+      # config dir
+      - ./volume/nginx/config:/etc/nginx
       # read-only volume
-      - ../svc-storage/nginx/config:/etc/nginx:ro
-      - ../svc-storage/nginx/readonly:/volume-ro:ro
+      - ./volume/nginx/readonly:/volume-ro:ro
       # read-write volume
-      - ../svc-storage/nginx/readwrite:/volume-rw
-      #- ../svc-storage/nginx/readwrite/cache:/var/cache/nginx
+      - ./volume/nginx/readwrite:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.2 # static ip

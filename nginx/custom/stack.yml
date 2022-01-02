@@ -13,10 +13,10 @@ services:
     ports:
       - 8000:80 # nginxd
     volumes:
-      # html dir
-      - ./volume/nginx/html:/usr/share/nginx/html:ro
       # config dir
       - ./volume/nginx/config:/etc/nginx
+      # html dir
+      - ./volume/nginx/html:/usr/share/nginx/html:ro
       # log dir
       - ./volume/nginx/log:/var/log/nginx
       # runtime file

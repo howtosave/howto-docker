@@ -2,7 +2,7 @@
   "packages": [
     "../mysql/custom",
     "svc-httpapi/*",
-    "svc-proxy/*",
+    "../nginx/www-api",
     "../nextjs/basic"
   ],
   "command": {

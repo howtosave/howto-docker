@@ -88,7 +88,7 @@ services:
 
   SVC_PROXY:
     container_name: SVC_PROXY
-    image: howtodocker:nginx
+    image: howtodocker:nginx_www_api
     command: []
     restart: always
     environment: []
@@ -96,13 +96,12 @@ services:
       # host:container
       - 80:80
     volumes:
-      # relative path to the Compose file
+      # config dir
+      - ./svc-storage/nginx/config:/etc/nginx
       # read-only volume
-      - ./svc-storage/nginx/config:/etc/nginx:ro
       - ./svc-storage/nginx/readonly:/volume-ro:ro
       # read-write volume
       - ./svc-storage/nginx/readwrite:/volume-rw
-      #- ./svc-storage/nginx/readwrite/cache:/var/cache/nginx
     networks:
       default:
         ipv4_address: 10.0.0.2 # static ip
