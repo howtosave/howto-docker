@@ -18,8 +18,8 @@ services:
       - 3000:3000
     volumes:
       # relative path to the Compose file
-      - ../svc-storage/var/nextjs:/volume-ro
-      - ../svc-storage/var/nextjs:/volume-rw
+      - ../svc-storage/nextjs:/volume-ro
+      - ../svc-storage/nextjs:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.31 # static ip

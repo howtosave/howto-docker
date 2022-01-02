@@ -16,8 +16,8 @@ version: '3.9'
 
 services:
 
-  SVC_DB:
-    container_name: SVC_DB
+  SVC_DB_mysql:
+    container_name: SVC_DB_mysql
     image: mysql:8.0
     command: --authentication-policy='caching_sha2_password'
     restart: always
@@ -29,8 +29,10 @@ services:
       - 33060:33060 # X Plugin
     volumes:
       # relative path to the Compose file
-      - ../svc-storage/var/mysql/data:/var/lib/mysql
-      - ../svc-storage/var/mysql/initdb.d:/docker-entrypoint-initdb.d
+      # readwrite(data)
+      - ../svc-storage/mysql/readwrite:/var/lib/mysql
+      # initial db script directory
+      - ../svc-storage/mysql/readonly/initdb.d:/docker-entrypoint-initdb.d:ro
     networks:
       default:
         ipv4_address: 10.0.0.21 # static ip
@@ -40,7 +42,7 @@ services:
     image: adminer
     restart: always
     environment:
-      ADMINER_DEFAULT_SERVER: SVC_DB
+      ADMINER_DEFAULT_SERVER: SVC_DB_mysql
     ports:
       - 8080:8080
     networks:
@@ -59,8 +61,8 @@ services:
       - 1337:1337
     volumes:
       # relative path to the Compose file
-      - ../svc-storage/var/nestjs:/volume-ro
-      - ../svc-storage/var/nestjs:/volume-rw
+      - ../svc-storage/nestjs:/volume-ro
+      - ../svc-storage/nestjs:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.11 # static ip

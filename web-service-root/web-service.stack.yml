@@ -63,8 +63,8 @@ services:
       - 1337:1337
     volumes:
       # relative path to the Compose file
-      - ./svc-storage/var/nestjs:/volume-ro
-      - ./svc-storage/var/nestjs:/volume-rw
+      - ./svc-storage/nestjs:/volume-ro
+      - ./svc-storage/nestjs:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.11 # static ip
@@ -80,8 +80,8 @@ services:
       - 3000:3000
     volumes:
       # relative path to the Compose file
-      - ./svc-storage/var/nextjs:/volume-ro
-      - ./svc-storage/var/nextjs:/volume-rw
+      - ./svc-storage/nextjs:/volume-ro
+      - ./svc-storage/nextjs:/volume-rw
     networks:
       default:
         ipv4_address: 10.0.0.31 # static ip

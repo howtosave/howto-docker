@@ -23,10 +23,10 @@
     "gen:controller": "nest generate controller",
     "gen:crud": "nest generate resource",
     "echo": "echo $PWD",
-    "docker:build": "yarn build && docker-compose -f ./stack.yml build --progress=plain",
-    "_docker:copy": "mkdir -p ../svc-storage/var/mysql/initdb.d && cp ./initdb.d/* ../svc-storage/var/mysql/initdb.d",
-    "docker:up": "yarn _docker:copy && docker-compose -f ./stack.yml up -d",
-    "docker:down": "docker-compose -f ./stack.yml down"
+    "docker:build": "yarn build && docker-compose -f ./docker-stack.yml build --progress=plain",
+    "docker:init": "mkdir -p ../svc-storage/mysql/readonly/initdb.d && cp ./initdb.d/* ../svc-storage/mysql/readonly/initdb.d",
+    "docker:up": "docker-compose -f ./docker-stack.yml up -d",
+    "docker:down": "docker-compose -f ./docker-stack.yml down"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
