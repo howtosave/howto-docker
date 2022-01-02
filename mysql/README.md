@@ -3,31 +3,26 @@
 ## TL;DR
 
 ```sh
-# run mysql and adminer
-docker-compose -p mysql -f stack-mysql-and-adminer.yml up
-# browse http:localst:8080
+# run mysql and adminer with 'docker-compose'
+yarn docker:default:up
+# then browse http:localst:8080
+
+# using 'docker' command-line
+./docker-run.sh -d
 ```
 
-## quick start mysql and use command line
+## quick start using command line
 
 ```sh
 # run docker
-docker run --rm --name mysql-dev -e MYSQL_ROOT_PASSWORD=root000 -d mysql/mysql-server:8.0
-# or
 docker run --rm --name mysql-dev -e MYSQL_ROOT_PASSWORD=root000 -d mysql:8.0
-# or on M1 mac
+# OR on M1 mac
 docker run --rm --platform linux/x86_64 --name mysql-dev -e MYSQL_ROOT_PASSWORD=root000 -d mysql:8.0
 
 # run mysql shell
 docker exec -it mysql-dev mysql -uroot -proot000
 # run bash
 docker exec -it mysql-dev bash
-```
-
-## Own data directory
-
-```sh
-./docker-run.sh
 ```
 
 ## Initial setup
@@ -62,6 +57,6 @@ select current_user();
 
 ## Misc
 
-### [Official Images](https://hub.docker.com/r/mysql/mysql-server)
+### [Official Images](https://hub.docker.com/_/mysql)
 
 - 8.0, 8.0.27 (debian)

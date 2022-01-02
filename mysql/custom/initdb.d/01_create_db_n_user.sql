@@ -1,0 +1,4 @@
+
+CREATE DATABASE IF NOT EXISTS firstdb;
+CREATE USER IF NOT EXISTS 'user00'@'localhost' IDENTIFIED BY 'user0000';
+GRANT ALL PRIVILEGES ON * . * TO 'user00'@'localhost';

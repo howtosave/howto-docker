@@ -11,7 +11,7 @@ version: '3.9'
 services:
 
   db:
-    container_name: mysql-dev
+    container_name: mysql-custom
     image: mysql:8.0
     command: --authentication-policy='caching_sha2_password'
     restart: always
@@ -22,18 +22,27 @@ services:
       - 3306:3306   # /usr/sbin/mysqld
       - 33060:33060 # X Plugin
     volumes:
-      # relative path to the Compose file
-      - ./mysql-volume/var/mysql/data:/var/lib/mysql
+      # data
+      - ./volume/data:/var/lib/mysql
+      # config
+      - ./config/mysql:/etc/mysql:ro
+      # initdb directory invoked only for the first time init.
+      - ./initdb.d:/docker-entrypoint-initdb.d:ro
     networks:
       default:
-        ipv4_address: 10.0.0.2 # static ip
+        ipv4_address: 10.0.0.21 # static ip
 
   adminer:
     container_name: mysql-admin
     image: adminer
     restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: db
     ports:
       - 8080:8080
+    networks:
+      default:
+        ipv4_address: 10.0.0.29 # static ip
 
 networks:
 
