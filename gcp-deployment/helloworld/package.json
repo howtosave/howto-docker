@@ -1,0 +1,18 @@
+{
+  "name": "helloworld",
+  "version": "1.0.0",
+  "main": "server.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "docker:build": "docker build --file Dockerfile --tag hello:1.0.0 ./",
+    "docker:run": "docker run --expose 3000 --publish 3000:3000 hello:1.0.0"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
+  },
+  "dependencies": {
+    "dotenv": "~10.0.0",
+    "express": "^4.17.1"
+  }
+}

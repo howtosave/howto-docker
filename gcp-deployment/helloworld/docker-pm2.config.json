@@ -1,0 +1,12 @@
+{
+  "name": "helloworld-with-gcp",
+  "script": "server.js",
+  "instances": "4",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "env_production" : {
+    "NODE_ENV": "production"
+  },
+  "log_date_format": "YY-MM-DD HH:mm:ss"
+}

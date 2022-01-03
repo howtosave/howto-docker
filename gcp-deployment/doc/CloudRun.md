@@ -11,12 +11,16 @@ Google's new Cloud Run service is a serverless platform built on Knative, the ru
 
 - Create a Google Cloud Platform (GCP) project, or use an existing one.
 - Enable the [Cloud Run API](https://console.developers.google.com/apis/api/run.googleapis.com/overview).
-- Enable the [Container Registry API](https://console.developers.google.com/apis/api/containerregistry.googleapis.com/overview).
+- Enable the [Artifact Registry](https://console.developers.google.com/apis/api/artifactregistry.googleapis.com/overview)
+- ~~~Enable the [Container Registry API](https://console.developers.google.com/apis/api/containerregistry.googleapis.com/overview).~~~
 - Enable the [Kubernetes Engine API](https://console.developers.google.com/apis/api/container.googleapis.com/overview).
 - Clone the [sample codes](https://github.com/Timtech4u/vuejs-dockerized) or setup your own codes with a Dockerfile.
 
-## 
+## Create container image
+
+
 
 ## References
 
 - [Quicistart: Deploy a Prebuilt Sample Container](https://cloud.google.com/run/docs/quickstarts/prebuilt-deploy)
+- [소스 코드에서 배포](https://cloud.google.com/run/docs/deploying-source-code)
